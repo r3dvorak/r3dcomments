@@ -1,5 +1,7 @@
-# Changelog – R3D Comments (`pkg_r3dcomments`)
-
+## [6.1.3]
+### Fixed
+- Comment dates in module output are now rendered in Joomla/user timezone instead of raw UTC DB timestamps.
+- Comment editor is rendered via Joomla editor API with explicit `readonly=false` to avoid locked input field in frontend.
 All notable changes to this package are documented here.
 
 ## [6.1.2]
@@ -183,3 +185,4 @@ All notable changes to this package are documented here.
 
 ### Note
 - Initial package release line.
+

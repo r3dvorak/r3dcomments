@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Editor\Editor;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
@@ -79,6 +80,27 @@ $canEditComment = function ($comment) use ($user): bool {
     }
 
     return false;
+};
+
+// Render dates in Joomla/user timezone instead of raw DB/UTC value.
+$formatDisplayDate = static function (?string $rawDate) use ($app): string {
+    if (!$rawDate) {
+        return '';
+    }
+
+    try {
+        $date = Factory::getDate($rawDate, 'UTC');
+        $tz = $app->getIdentity()->getParam('timezone');
+        if (!$tz) {
+            $tz = Factory::getConfig()->get('offset', 'UTC');
+        }
+        if ($tz) {
+            $date->setTimezone(new \DateTimeZone((string) $tz));
+        }
+        return $date->format(Text::_('DATE_FORMAT_LC2'), true);
+    } catch (\Throwable $e) {
+        return (string) $rawDate;
+    }
 };
 
 static $r3dcommentsInlineStylesPrinted = false;
@@ -318,7 +340,7 @@ static $r3dcommentsInlineStylesPrinted = false;
             <article class="r3dcomment-item r3dcomment-item-root">
                 <header class="r3dcomment-meta">
                     <strong><?php echo htmlspecialchars($root->author_name ?: $root->user_id, ENT_QUOTES, 'UTF-8'); ?></strong>
-                    <span> | <?php echo $root->created; ?></span>
+                    <span> | <?php echo htmlspecialchars($formatDisplayDate((string) $root->created), ENT_QUOTES, 'UTF-8'); ?></span>
 
                     <?php if ($canEditComment($root)) : ?>
                         <a href="<?php echo Route::_('index.php?option=com_r3dcomments&task=comment.edit&id=' . (int) $root->id); ?>">
@@ -353,7 +375,7 @@ static $r3dcommentsInlineStylesPrinted = false;
                             <article class="r3dcomment-item r3dcomment-item-child">
                                 <header class="r3dcomment-meta">
                                     <strong><?php echo htmlspecialchars($child->author_name ?: $child->user_id, ENT_QUOTES, 'UTF-8'); ?></strong>
-                                    <span> | <?php echo $child->created; ?></span>
+                                    <span> | <?php echo htmlspecialchars($formatDisplayDate((string) $child->created), ENT_QUOTES, 'UTF-8'); ?></span>
 
                                     <?php if ($canEditComment($child)) : ?>
                                         <a href="<?php echo Route::_('index.php?option=com_r3dcomments&task=comment.edit&id=' . (int) $child->id); ?>">
@@ -454,7 +476,25 @@ static $r3dcommentsInlineStylesPrinted = false;
                                     </label>
                                 </div>
                                 <div class="controls">
-                                    <?php echo $field->input; ?>
+                                    <?php
+                                    $postedForm = (array) $app->input->get('jform', [], 'array');
+                                    $commentValue = (string) ($postedForm['comment'] ?? '');
+                                    $editorName = (string) Factory::getConfig()->get('editor', 'jce');
+                                    $editor = Editor::getInstance($editorName);
+                                    echo $editor->display(
+                                        'jform[comment]',
+                                        $commentValue,
+                                        '100%',
+                                        '280',
+                                        '60',
+                                        '12',
+                                        true,
+                                        'jform_comment',
+                                        null,
+                                        null,
+                                        ['readonly' => false]
+                                    );
+                                    ?>
                                 </div>
                             </div>
                         <?php else : ?>
