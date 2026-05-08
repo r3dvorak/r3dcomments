@@ -1,3 +1,7 @@
+## 6.1.5 (2026-05-08)
+- Replaced outdated component frontend comments template with the current module-equivalent logic.
+- Fixed quote/reply interactions by using button-based actions and unified JS handlers.
+- Aligned component comment timestamp rendering with Joomla/user timezone formatting.
 ## [6.1.3]
 ### Fixed
 - Comment dates in module output are now rendered in Joomla/user timezone instead of raw UTC DB timestamps.
@@ -185,5 +189,6 @@ All notable changes to this package are documented here.
 
 ### Note
 - Initial package release line.
+
 
 
