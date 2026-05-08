@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="package" method="upgrade">
+    <name>pkg_r3dcomments</name>
+    <packagename>r3dcomments</packagename>
+    <version>6.1.21</version>
+    <creationDate>2026-05-08</creationDate>
+    <author>Richard Dvorak</author>
+    <authorEmail>dev@r3d.de</authorEmail>
+    <authorUrl>https://www.r3d.de</authorUrl>
+    <copyright>Copyright (C) 2026 Richard Dvorak</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <description>R3D Comments package for Joomla 6.</description>
+    <blockChildUninstall>false</blockChildUninstall>
+
+    <files>
+        <file type="component" id="com_r3dcomments">com_r3dcomments.zip</file>
+        <file type="module" id="mod_r3dcomments" client="site">mod_r3dcomments.zip</file>
+    </files>
+
+    <updateservers>
+        <server type="extension" priority="1" name="R3D Comments Update Server">https://www.r3d.de/joomlaextensions/updates/pkg_r3dcomments.xml</server>
+    </updateservers>
+
+    <scriptfile>script.pkg_r3dcomments.php</scriptfile>
+</extension>

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form addfieldprefix="Joomla\Component\R3dcomments\Administrator\Field">
+	<fieldset name="frontend" label="COM_R3DCOMMENTS_FRONTEND_FIELDSET_LABEL">
+		<field name="author_name"
+			type="text"
+			label="COM_R3DCOMMENTS_COMMENT_AUTHOR_NAME_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_AUTHOR_NAME_DESC"
+			required="true"
+			/>
+
+		<field
+			name="author_email"
+			type="email"
+			label="COM_R3DCOMMENTS_COMMENT_AUTHOR_EMAIL_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_AUTHOR_EMAIL_DESC"
+			validate="email"
+			/>
+
+		<field name="comment"
+			type="editor"
+			label="COM_R3DCOMMENTS_COMMENT_COMMENT_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_COMMENT_DESC"
+			required="true"
+			buttons="false"
+			/>
+	</fieldset>
+
+	<fieldset name="details">
+
+       <field name="id" type="text" default="0" label="COM_R3DCOMMENTS_FORM_LBL_COMMENT_ID"
+            readonly="true" class="readonly"
+            description="JGLOBAL_FIELD_ID_DESC" /> 
+
+	   <field
+			name="created_by"
+			type="createdby"
+			label="COM_R3DCOMMENTS_COMMENT_CREATED_BY_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_CREATED_BY_DESC"
+			default=""
+			/>
+	
+		<field
+			name="state"
+			type="list"
+			label="COM_R3DCOMMENTS_COMMENT_STATE_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_STATE_DESC"
+			class="inputbox"
+			size="1"
+			default="1"
+			>
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+	
+	
+		<field
+			name="parent_id"
+			type="integer"
+			label="COM_R3DCOMMENTS_COMMENT_PARENT_ID_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_PARENT_ID_DESC"
+			default="0"
+			/>
+	
+		<field
+			name="context"
+			type="text"
+			label="COM_R3DCOMMENTS_COMMENT_CONTEXT_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_CONTEXT_DESC"
+			default="com_content.article"
+			/>
+	
+		<field
+			name="item_id"
+			type="integer"
+			label="COM_R3DCOMMENTS_COMMENT_ITEM_ID_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_ITEM_ID_DESC"
+			default=""
+			/>
+	
+		<field
+			name="user_id"
+			type="user"
+			label="COM_R3DCOMMENTS_COMMENT_USER_ID_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_USER_ID_DESC"
+			default="0"
+			/>
+	
+		<field
+			name="quoted_comment_id"
+			type="integer"
+			label="COM_R3DCOMMENTS_COMMENT_QUOTED_COMMENT_ID_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_QUOTED_COMMENT_ID_DESC"
+			default=""
+			/>
+	
+		<field
+			name="fields"
+			type="textarea"
+			label="COM_R3DCOMMENTS_COMMENT_FIELDS_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_FIELDS_DESC"
+			filter="raw"
+			default=""
+			/>
+	
+		<field
+			name="params_reserved_by_joomla"
+			type="textarea"
+			label="COM_R3DCOMMENTS_COMMENT_PARAMS_RESERVED_BY_JOOMLA_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_PARAMS_RESERVED_BY_JOOMLA_DESC"
+			filter="raw"
+			default=""
+			/>
+	
+		<field
+			name="ip"
+			type="text"
+			label="COM_R3DCOMMENTS_COMMENT_IP_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_IP_DESC"
+			default=""
+			/>
+	
+		<field
+			name="created"
+			type="calendar"
+			label="COM_R3DCOMMENTS_COMMENT_CREATED_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_CREATED_DESC"
+			default=""
+			/>
+	
+		<field
+			name="modified_by"
+			type="user"
+			label="COM_R3DCOMMENTS_COMMENT_MODIFIED_BY_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_MODIFIED_BY_DESC"
+			default="0"
+			/>
+	
+		<field
+			name="modified"
+			type="calendar"
+			label="COM_R3DCOMMENTS_COMMENT_MODIFIED_LBL"
+			hint="COM_R3DCOMMENTS_COMMENT_MODIFIED_DESC"
+			default=""
+			/>
+
+	</fieldset>
+</form>

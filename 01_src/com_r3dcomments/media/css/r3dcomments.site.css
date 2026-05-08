@@ -1,0 +1,82 @@
+.list-media {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.r3dcomments-wrapper-uikit .r3dcomment-children {
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+    border-left: 3px solid rgba(0, 0, 0, 0.12);
+}
+
+.r3dcomments-wrapper-uikit .r3dcomment-item-child {
+    margin-bottom: 0.75rem;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.r3dcomments-wrapper-uikit .r3dcomment-item-child:last-child {
+    margin-bottom: 0;
+}
+
+.r3dcomments-wrapper-uikit .r3dcomment-meta,
+.r3dcomments-wrapper-uikit .r3dcomment-actions,
+.r3dcomments-wrapper-uikit .r3dcomment-body {
+    margin-bottom: 0.75rem;
+}
+
+.r3dcomments-wrapper-uikit .r3dcomment-meta:last-child,
+.r3dcomments-wrapper-uikit .r3dcomment-actions:last-child,
+.r3dcomments-wrapper-uikit .r3dcomment-body:last-child {
+    margin-bottom: 0;
+}
+
+.r3dcomments-wrapper-standard .r3dcomment-item {
+    margin: 0 0 1.25rem;
+    padding: 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 0.5rem;
+    background: #fff;
+}
+
+.r3dcomments-wrapper-standard .r3dcomment-children {
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+    padding-left: 1rem;
+    border-left: 3px solid rgba(0, 0, 0, 0.12);
+}
+
+.r3dcomments-wrapper-standard .r3dcomment-item-child {
+    margin-bottom: 0.75rem;
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.r3dcomments-wrapper-standard .r3dcomment-item-child:last-child {
+    margin-bottom: 0;
+}
+
+.r3dcomments-wrapper-standard .r3dcomment-meta,
+.r3dcomments-wrapper-standard .r3dcomment-actions,
+.r3dcomments-wrapper-standard .r3dcomment-body,
+.r3dcomments-wrapper-standard .r3dcomment-field,
+.r3dcomments-wrapper-standard .r3dcomment-reply-indicator {
+    margin-bottom: 0.75rem;
+}
+
+.r3dcomments-wrapper-standard .r3dcomment-meta:last-child,
+.r3dcomments-wrapper-standard .r3dcomment-actions:last-child,
+.r3dcomments-wrapper-standard .r3dcomment-body:last-child,
+.r3dcomments-wrapper-standard .r3dcomment-field:last-child,
+.r3dcomments-wrapper-standard .r3dcomment-reply-indicator:last-child {
+    margin-bottom: 0;
+}
+
+.r3dcomments-wrapper-standard .r3dcomment-reply-indicator {
+    padding: 0.75rem 1rem;
+    border-left: 3px solid #0d6efd;
+    background: rgba(13, 110, 253, 0.08);
+}
+
+.r3dcomments-wrapper-standard #r3dcomment-form button {
+    margin-top: 0.5rem;
+}

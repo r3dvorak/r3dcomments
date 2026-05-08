@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" client="site" method="upgrade" version="6.0">
+    <name>mod_r3dcomments</name>
+    <creationDate>2026-05-08</creationDate>
+    <version>6.1.21</version>
+    <author>Richard Dvorak</author>
+    <authorEmail>dev@r3d.de</authorEmail>
+    <authorUrl>https://www.r3d.de</authorUrl>
+    <license>GNU GPL v2 or later</license>
+    <description>R3D Comments frontend integration module for Joomla 6.</description>
+
+    <files>
+        <filename module="mod_r3dcomments">mod_r3dcomments.php</filename>
+        <filename>index.html</filename>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.mod_r3dcomments.ini</language>
+        <language tag="en-GB">en-GB/en-GB.mod_r3dcomments.sys.ini</language>
+        <language tag="de-DE">de-DE/de-DE.mod_r3dcomments.ini</language>
+        <language tag="de-DE">de-DE/de-DE.mod_r3dcomments.sys.ini</language>
+        <language tag="el-GR">el-GR/el-GR.mod_r3dcomments.ini</language>
+        <language tag="el-GR">el-GR/el-GR.mod_r3dcomments.sys.ini</language>
+    </languages>
+
+    <config>
+        <fields name="params">
+            <fieldset name="basic" label="MOD_R3DCOMMENTS_FIELDSET_BASIC">
+
+                <field
+                    name="allowed_categories"
+                    type="category"
+                    extension="com_content"
+                    label="MOD_R3DCOMMENTS_CATEGORIES_LABEL"
+                    description="MOD_R3DCOMMENTS_CATEGORIES_DESC"
+                    multiple="true"
+                />
+
+                <field
+                    name="include_subcats"
+                    type="radio"
+                    default="1"
+                    label="MOD_R3DCOMMENTS_SUBCATS_LABEL"
+                    description="MOD_R3DCOMMENTS_SUBCATS_DESC">
+                    <option value="1">JYES</option>
+                    <option value="0">JNO</option>
+                </field>
+
+                <field
+                    name="render_mode"
+                    type="list"
+                    default="standard"
+                    label="MOD_R3DCOMMENTS_RENDER_MODE_LABEL"
+                    description="MOD_R3DCOMMENTS_RENDER_MODE_DESC">
+                    <option value="uikit">MOD_R3DCOMMENTS_RENDER_MODE_UIKIT</option>
+                    <option value="standard">MOD_R3DCOMMENTS_RENDER_MODE_STANDARD</option>
+                </field>
+
+            </fieldset>
+        </fields>
+    </config>
+</extension>
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" method="upgrade">
+    <name>com_r3dcomments</name>
+    <creationDate>2026-05-08</creationDate>
+    <copyright>Copyright (C) 2025. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <author>Richard Dvorak</author>
+    <authorEmail>dev@r3d.de</authorEmail>
+    <authorUrl>https://www.r3d.de</authorUrl>
+    <version>6.1.21</version>
+    <description>R3D Comments is a simple Joomla 5 component for managing user comments using modern Joomla MVC architecture. Frontend users can submit comments and reply to existing comments — replies are limited to one level (no deep threaded trees).</description>
+    <namespace path="src">Joomla\Component\R3dcomments</namespace>
+
+    <!-- Runs on install -->
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    
+    <!-- Runs on uninstall -->
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    <!-- Runs on update -->
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+
+    <files folder="site">
+        <folder>src</folder>
+        <folder>tmpl</folder>
+        <folder>language</folder>
+    </files>
+
+    <languages folder="site">
+        <language tag="en-GB">language/en-GB/com_r3dcomments.ini</language>
+		<language tag="de-DE">language/de-DE/com_r3dcomments.ini</language>
+		<language tag="el-GR">language/el-GR/com_r3dcomments.ini</language>
+    </languages>
+
+    <media destination="com_r3dcomments">
+        <folder>media/css</folder>
+        <folder>media/images</folder>
+        <folder>media/js</folder>
+    </media>
+
+    <administration>
+        <menu>COM_R3DCOMMENTS</menu>  
+        <submenu>
+            <menu link="option=com_r3dcomments&amp;view=comments" view="comments" img="media/com_r3dcomments/images/view-16x16-comments.png" alt="R3dcomments/Comments">COM_R3DCOMMENTS_TITLE_COMMENTS</menu>
+        </submenu>
+        <files folder="administrator">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <folder>tmpl</folder>
+            <folder>forms</folder>
+            <folder>services</folder>
+            <folder>sql</folder>
+            <folder>src</folder>
+            <folder>language</folder>
+        </files>
+        <languages folder="administrator">
+            <language tag="en-GB">language/en-GB/com_r3dcomments.ini</language>
+			<language tag="en-GB">language/en-GB/com_r3dcomments.sys.ini</language>
+			<language tag="de-DE">language/de-DE/com_r3dcomments.ini</language>
+			<language tag="de-DE">language/de-DE/com_r3dcomments.sys.ini</language>
+			<language tag="el-GR">language/el-GR/com_r3dcomments.ini</language>
+			<language tag="el-GR">language/el-GR/com_r3dcomments.sys.ini</language>
+        </languages>
+    </administration>
+
+</extension>
+
