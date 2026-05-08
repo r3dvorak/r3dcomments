@@ -463,7 +463,17 @@ static $r3dcommentsInlineStylesPrinted = false;
                                     </label>
                                 </div>
                                 <div class="controls">
-                                    <?php echo $field->input; ?>
+                                    <?php
+                                    $postedForm = (array) $app->input->get('jform', [], 'array');
+                                    $commentValue = (string) ($postedForm['comment'] ?? '');
+                                    ?>
+                                    <textarea
+                                        name="jform[comment]"
+                                        id="jform_comment"
+                                        class="uk-textarea"
+                                        rows="8"
+                                        required
+                                    ><?php echo htmlspecialchars($commentValue, ENT_QUOTES, 'UTF-8'); ?></textarea>
                                 </div>
                             </div>
                         <?php else : ?>

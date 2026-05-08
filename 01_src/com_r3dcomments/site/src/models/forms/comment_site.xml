@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset name="frontend">
+
+		<field
+			name="comment"
+			type="textarea"
+			label="COM_R3DCOMMENTS_FIELD_COMMENT_LABEL"
+			required="true"
+			filter="safehtml"
+		/>
+
+		<!-- Wird vom Controller überschrieben, aber wichtig für das Model -->
+		<field
+			name="state"
+			type="hidden"
+			default="1"
+		/>
+
+		<field
+			name="context"
+			type="hidden"
+		/>
+
+		<field
+			name="item_id"
+			type="hidden"
+			filter="INT"
+		/>
+
+		<!-- Für Gäste -->
+		<field
+			name="author_name"
+			type="text"
+			label="JGLOBAL_NAME"
+		/>
+
+		<field
+			name="author_email"
+			type="email"
+			label="JGLOBAL_EMAIL"
+		/>
+
+	</fieldset>
+</form>

@@ -3,6 +3,10 @@
 All notable changes to this package are documented here.
 
 ## [6.1.1]
+### Fixed
+- Frontend comment field is now rendered as a plain textarea in module templates to avoid readonly JCE editor lock in site context.
+- Frontend `CommentModel` now loads a dedicated site form (`comment_site.xml`) to avoid admin-form collisions.
+
 ### Changed
 - Synced and updated project documentation (`README.md`, `CHANGELOG.md`).
 - Updated README to the standardized `_tools` build/package workflow and current repository layout.

@@ -6,7 +6,7 @@
     "description": "Joomla extension suite for R3D Comments (component + module).",
     "updateServerUrl": "https://www.r3d.de/joomlaextensions/updates/pkg_r3dcomments.xml",
     "defaults": {
-      "version": "6.1.0",
+      "version": "6.1.1",
       "creationDate": "2026-05-08"
     },
     "author": {
@@ -32,4 +32,5 @@
     "versioning": "semver"
   }
 }
+
 

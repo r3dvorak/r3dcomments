@@ -70,11 +70,13 @@ class CommentModel extends FormModel
 
     public function getForm($data = [], $loadData = true)
     {
-        Form::addFormPath(JPATH_ADMINISTRATOR . '/components/com_r3dcomments/forms');
+        // Frontend must use the site form definition.
+        // The administrator form uses an editor field which can become readonly in frontend context.
+        Form::addFormPath(JPATH_SITE . '/components/com_r3dcomments/src/models/forms');
 
         $form = $this->loadForm(
-            'com_r3dcomments.comment',
-            'comment',
+            'com_r3dcomments.comment.site',
+            'comment_site',
             ['control' => 'jform', 'load_data' => $loadData]
         );
 
