@@ -5,6 +5,8 @@ All notable changes to this package are documented here.
 ## [6.1.1]
 ### Changed
 - Synced and updated project documentation (`README.md`, `CHANGELOG.md`).
+- Updated README to the standardized `_tools` build/package workflow and current repository layout.
+- Added local project `AGENTS.md` governance file (kept local, excluded from GitHub).
 
 ## [6.1.0] (2026-05-08)
 ### Changed
