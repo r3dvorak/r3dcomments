@@ -6,7 +6,8 @@
 04_dist/
 03_docs/
 relaunch/
-05_updates/*`n!05_updates/`n!05_updates/pkg_r3dcomments.xml
+05_updates/
+scripts/
 
 # Temp
 *.tmp
@@ -26,5 +27,3 @@ relaunch/
 AGENTS.md
 session.json
 .codex/session.json
-
-
