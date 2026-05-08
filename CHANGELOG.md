@@ -2,6 +2,14 @@
 
 All notable changes to this package are documented here.
 
+## [6.1.1]
+### Changed
+- Synced and updated project documentation (`README.md`, `CHANGELOG.md`).
+
+## [6.1.0] (2026-05-08)
+### Changed
+- Standardized project structure and build workflow.
+
 ## [6.0.25]
 ### Fixed
 - Preserved language on comment form POST (`lang` is now passed to `comment.save`).
