@@ -332,19 +332,19 @@ static $r3dcommentsInlineStylesPrinted = false;
                 </div>
 
                 <div class="r3dcomment-actions">
-                    <a href="#"
+                    <button type="button"
                        class="r3d-reply-btn"
                        data-parent="<?php echo (int) $root->id; ?>"
                        data-quote-id="<?php echo (int) $root->id; ?>"
                        data-quote="<?php echo htmlspecialchars(strip_tags($root->comment), ENT_QUOTES, 'UTF-8'); ?>">
                         ↳ <?php echo htmlspecialchars($translateFallback('COM_R3DCOMMENTS_REPLY', 'Antworten', 'Reply'), ENT_QUOTES, 'UTF-8'); ?>
-                    </a>
-                    <a href="#"
+                    </button>
+                    <button type="button"
                        class="r3d-reply-btn r3d-quote-btn"
                        data-parent="<?php echo (int) $root->id; ?>"
                        data-quote-id="<?php echo (int) $root->id; ?>">
                         “ <?php echo htmlspecialchars($translateFallback('COM_R3DCOMMENTS_QUOTE', 'Zitat', 'Quote'), ENT_QUOTES, 'UTF-8'); ?>
-                    </a>
+                    </button>
                 </div>
 
                 <?php if (!empty($root->children)) : ?>
@@ -367,19 +367,19 @@ static $r3dcommentsInlineStylesPrinted = false;
                                 </div>
 
                                 <div class="r3dcomment-actions">
-                                    <a href="#"
+                                    <button type="button"
                                        class="r3d-reply-btn"
                                        data-parent="<?php echo (int) $root->id; ?>"
                                        data-quote-id="<?php echo (int) $child->id; ?>"
                                        data-quote="<?php echo htmlspecialchars(strip_tags($child->comment), ENT_QUOTES, 'UTF-8'); ?>">
                                         ↳ <?php echo htmlspecialchars($translateFallback('COM_R3DCOMMENTS_REPLY', 'Antworten', 'Reply'), ENT_QUOTES, 'UTF-8'); ?>
-                                    </a>
-                                    <a href="#"
+                                    </button>
+                                    <button type="button"
                                        class="r3d-reply-btn r3d-quote-btn"
                                        data-parent="<?php echo (int) $root->id; ?>"
                                        data-quote-id="<?php echo (int) $child->id; ?>">
                                         “ <?php echo htmlspecialchars($translateFallback('COM_R3DCOMMENTS_QUOTE', 'Zitat', 'Quote'), ENT_QUOTES, 'UTF-8'); ?>
-                                    </a>
+                                    </button>
                                 </div>
                             </article>
                         <?php endforeach; ?>
@@ -422,7 +422,29 @@ static $r3dcommentsInlineStylesPrinted = false;
                         continue;
                     } ?>
                     <div class="r3dcomment-field">
-                        <?php if ($field->fieldname === 'comment') : ?>
+                        <?php if ($field->fieldname === 'author_name') : ?>
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <label for="<?php echo htmlspecialchars($field->id, ENT_QUOTES, 'UTF-8'); ?>">
+                                        <?php echo htmlspecialchars($translateFallback('JGLOBAL_NAME', 'Name', 'Name'), ENT_QUOTES, 'UTF-8'); ?>
+                                    </label>
+                                </div>
+                                <div class="controls">
+                                    <?php echo $field->input; ?>
+                                </div>
+                            </div>
+                        <?php elseif ($field->fieldname === 'author_email') : ?>
+                            <div class="control-group">
+                                <div class="control-label">
+                                    <label for="<?php echo htmlspecialchars($field->id, ENT_QUOTES, 'UTF-8'); ?>">
+                                        <?php echo htmlspecialchars($translateFallback('JGLOBAL_EMAIL', 'E-Mail-Adresse', 'Email address'), ENT_QUOTES, 'UTF-8'); ?>
+                                    </label>
+                                </div>
+                                <div class="controls">
+                                    <?php echo $field->input; ?>
+                                </div>
+                            </div>
+                        <?php elseif ($field->fieldname === 'comment') : ?>
                             <div class="control-group">
                                 <div class="control-label">
                                     <label id="<?php echo htmlspecialchars($field->id, ENT_QUOTES, 'UTF-8'); ?>-lbl"
@@ -432,17 +454,7 @@ static $r3dcommentsInlineStylesPrinted = false;
                                     </label>
                                 </div>
                                 <div class="controls">
-                                    <?php
-                                    $postedForm = (array) $app->input->get('jform', [], 'array');
-                                    $commentValue = (string) ($postedForm['comment'] ?? '');
-                                    ?>
-                                    <textarea
-                                        name="jform[comment]"
-                                        id="jform_comment"
-                                        class="uk-textarea"
-                                        rows="8"
-                                        required
-                                    ><?php echo htmlspecialchars($commentValue, ENT_QUOTES, 'UTF-8'); ?></textarea>
+                                    <?php echo $field->input; ?>
                                 </div>
                             </div>
                         <?php else : ?>

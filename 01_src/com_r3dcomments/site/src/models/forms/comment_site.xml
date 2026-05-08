@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
 	<fieldset name="frontend">
+		<!-- Für Gäste zuerst Name / E-Mail -->
+		<field
+			name="author_name"
+			type="text"
+			label="JGLOBAL_NAME"
+		/>
+
+		<field
+			name="author_email"
+			type="email"
+			label="JGLOBAL_EMAIL"
+			validate="email"
+		/>
 
 		<field
 			name="comment"
-			type="textarea"
+			type="editor"
 			label="COM_R3DCOMMENTS_FIELD_COMMENT_LABEL"
 			required="true"
 			filter="safehtml"
+			readonly="false"
+			buttons="true"
+			hide="pagebreak,readmore"
 		/>
 
 		<!-- Wird vom Controller überschrieben, aber wichtig für das Model -->
@@ -26,19 +42,6 @@
 			name="item_id"
 			type="hidden"
 			filter="INT"
-		/>
-
-		<!-- Für Gäste -->
-		<field
-			name="author_name"
-			type="text"
-			label="JGLOBAL_NAME"
-		/>
-
-		<field
-			name="author_email"
-			type="email"
-			label="JGLOBAL_EMAIL"
 		/>
 
 	</fieldset>

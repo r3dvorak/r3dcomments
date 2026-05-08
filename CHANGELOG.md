@@ -2,6 +2,15 @@
 
 All notable changes to this package are documented here.
 
+## [6.1.2]
+### Fixed
+- Quote action buttons switched from anchor links to real buttons to prevent unwanted page jump-to-top behavior.
+- Guest form labels normalized to readable text (no `JGLOBAL_NAME` key leakage in output).
+- Guest field order corrected: Name and E-Mail now render above the comment field.
+
+### Changed
+- Frontend comment field switched back to editor field via site form definition (`comment_site.xml`) with collision-safe loading.
+
 ## [6.1.1]
 ### Fixed
 - Frontend comment field is now rendered as a plain textarea in module templates to avoid readonly JCE editor lock in site context.
