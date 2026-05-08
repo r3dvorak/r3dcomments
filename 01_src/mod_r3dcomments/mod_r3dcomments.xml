@@ -2,7 +2,7 @@
 <extension type="module" client="site" method="upgrade" version="6.0">
     <name>mod_r3dcomments</name>
     <creationDate>2026-05-08</creationDate>
-    <version>6.1.4</version>
+    <version>6.1.6</version>
     <author>Richard Dvorak</author>
     <authorEmail>dev@r3d.de</authorEmail>
     <authorUrl>https://www.r3d.de</authorUrl>
@@ -62,6 +62,7 @@
         </fields>
     </config>
 </extension>
+
 
 
 

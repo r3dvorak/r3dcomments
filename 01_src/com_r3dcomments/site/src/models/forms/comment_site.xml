@@ -44,5 +44,19 @@
 			filter="INT"
 		/>
 
+		<field
+			name="parent_id"
+			type="hidden"
+			filter="INT"
+			default="0"
+		/>
+
+		<field
+			name="quoted_comment_id"
+			type="hidden"
+			filter="INT"
+			default="0"
+		/>
+
 	</fieldset>
 </form>

@@ -1,3 +1,6 @@
+## 6.1.6 (2026-05-08)
+- Fixed frontend reply/quote persistence: added missing hidden form fields parent_id and quoted_comment_id to site comment forms.
+- Replies and quotes are now no longer dropped during form validation.
 ## 6.1.5 (2026-05-08)
 - Replaced outdated component frontend comments template with the current module-equivalent logic.
 - Fixed quote/reply interactions by using button-based actions and unified JS handlers.
@@ -189,6 +192,7 @@ All notable changes to this package are documented here.
 
 ### Note
 - Initial package release line.
+
 
 
 
