@@ -19,8 +19,11 @@ scripts/
 
 # Local secrets / environment
 .env
+.ENV
 .env.local
+.ENV.local
 .env.*.local
+.ENV.*.local
 .venv/
 .vscode/
 .idea/
