@@ -805,10 +805,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const appendGuestPreviewNodes = (container, rawValue) => {
         const value = String(rawValue || '');
         const decodeEntities = (text) => text
-            .replace(/&amp;mdash;/gi, '—')
-            .replace(/&mdash;/gi, '—')
-            .replace(/&amp;ndash;/gi, '–')
-            .replace(/&ndash;/gi, '–')
+            .replace(/&amp;mdash;/gi, '-')
+            .replace(/&mdash;/gi, '-')
+            .replace(/&amp;ndash;/gi, '-')
+            .replace(/&ndash;/gi, '-')
             .replace(/&quot;/gi, '"')
             .replace(/&#039;/gi, "'")
             .replace(/&amp;/gi, '&');
@@ -834,7 +834,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     renderWithPlaceholders(quoteEl, block.body, blocks);
                     if (block.author !== '') {
                         const cite = document.createElement('cite');
-                        cite.textContent = '— ' + block.author;
+                        cite.textContent = '- ' + block.author;
                         quoteEl.appendChild(cite);
                     }
                     target.appendChild(quoteEl);
@@ -909,7 +909,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const escapedQuote = escapeHtml(quoteText);
             const escapedAuthor = escapeHtml(authorName);
             const htmlQuote = escapedAuthor !== ''
-                ? `<blockquote><p>${escapedQuote}</p><cite>— ${escapedAuthor}</cite></blockquote><p></p>`
+                ? `<blockquote><p>${escapedQuote}</p><cite>- ${escapedAuthor}</cite></blockquote><p></p>`
                 : `<blockquote><p>${escapedQuote}</p></blockquote><p></p>`;
             const plainQuote = authorName !== ''
                 ? `[quote=${authorName}]\n${quoteText}\n[/quote]\n\n`

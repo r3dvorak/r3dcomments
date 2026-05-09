@@ -1,13 +1,18 @@
+# Changelog
+
+All notable changes to this package are documented in this file.
+
 ## 6.1.11 (2026-05-09)
 - Fixed frontend preview modal script output that could break markup and leak JS as visible text.
 - Replaced string-template preview rendering with DOM-based rendering for safer guest/logged-in behavior.
 - Restored guest quote/reply click handling after preview-script break.
+- Fixed nested guest quote parsing in preview (no trailing `[/quote]` outside blockquote).
+- Replaced problematic `&mdash;` rendering in quote cite output with a plain `-` fallback to avoid entity text leakage.
+- Updated release metadata source so changelog links point to this repository/branch.
+
 ## 6.1.10 (2026-05-09)
 - Added frontend comment preview modal (Preview) before submit.
 - Reworked message handling to render R3D-related Joomla messages as toast overlays more reliably.
-# Changelog
-
-All notable changes to this package are documented in this file.
 
 ## 6.1.9 (2026-05-09)
 - Fixed frontend JS breakage in quote/reply flow caused by runtime-mangled `<`/`>` regex literals in inline script output.
@@ -51,5 +56,3 @@ All notable changes to this package are documented in this file.
 
 ## Older Releases
 - Full history for `6.0.x` is preserved in Git history and prior changelog commits.
-
-
