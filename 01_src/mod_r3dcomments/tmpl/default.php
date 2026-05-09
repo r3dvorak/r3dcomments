@@ -611,6 +611,7 @@ document.addEventListener('DOMContentLoaded', () => {
             subscribe: 'Beitrag abonnieren',
             unsubscribe: 'Beitrag nicht mehr abonnieren'
         };
+    const isGuest = <?php echo $user->guest ? 'true' : 'false'; ?>;
     const toastMessages = [
         <?php echo json_encode(Text::_('COM_R3DCOMMENTS_DATA_FORM_INFORMATION_RECEIVED')); ?>,
         <?php echo json_encode(Text::_('COM_R3DCOMMENTS_DATA_FORM_INFORMATION_RECEIVED_PENDING')); ?>,
@@ -691,7 +692,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .replace(/'/g, '&#039;');
 
     const insertIntoCommentEditor = (html, fallbackText) => {
-        if (window.tinymce) {
+        if (!isGuest && window.tinymce) {
             const editor = tinymce.get('jform_comment');
 
             if (editor) {
@@ -740,8 +741,9 @@ document.addEventListener('DOMContentLoaded', () => {
             parentField.value = parentId;
             quoteIdField.value = quoteId;
             quoteTxtField.value = quoteText;
-            replyPreview.innerText = quoteText;
-            replyBox.style.display = 'block';
+            // For quote action we insert directly into the input/editor and do not duplicate it in preview.
+            replyPreview.innerText = '';
+            replyBox.style.display = 'none';
 
             const escapedQuote = escapeHtml(quoteText);
             const escapedAuthor = escapeHtml(authorName);

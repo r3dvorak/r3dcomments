@@ -1,3 +1,7 @@
+## 6.1.7 (2026-05-09)
+- Split quote/reply frontend behavior by intent: reply uses reply-preview, quote inserts directly into editor/textarea.
+- Removed quote preview duplication (no duplicate quote in preview + editor).
+- Ensured guest quote always writes visibly into guest textarea.
 ## 6.1.6 (2026-05-08)
 - Fixed frontend reply/quote persistence: added missing hidden form fields parent_id and quoted_comment_id to site comment forms.
 - Replies and quotes are now no longer dropped during form validation.
@@ -192,6 +196,7 @@ All notable changes to this package are documented here.
 
 ### Note
 - Initial package release line.
+
 
 
 

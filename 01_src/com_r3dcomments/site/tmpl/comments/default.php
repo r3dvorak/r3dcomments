@@ -260,8 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const quoteIdField = document.getElementById('r3d-quote-id');
     const quoteTxtField = document.getElementById('r3d-quote-text');
 
+    const isGuest = <?php echo $user->guest ? 'true' : 'false'; ?>;
+
     const insertIntoCommentEditor = (html, fallbackText) => {
-        if (window.tinymce) {
+        if (!isGuest && window.tinymce) {
             const editor = tinymce.get('jform_comment');
             if (editor) {
                 editor.focus();
@@ -326,8 +328,9 @@ document.addEventListener('DOMContentLoaded', () => {
             parentField.value = parentId;
             quoteIdField.value = quoteId;
             quoteTxtField.value = quoteText;
-            replyPreview.innerText = quoteText;
-            replyBox.style.display = 'block';
+            // For quote action we insert directly into the input/editor and do not duplicate it in preview.
+            replyPreview.innerText = '';
+            replyBox.style.display = 'none';
 
             const escapedQuote = escapeHtml(quoteText);
             const escapedAuthor = escapeHtml(authorName);
