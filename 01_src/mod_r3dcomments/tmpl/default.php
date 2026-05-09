@@ -294,14 +294,30 @@ static $r3dcommentsInlineStylesPrinted = false;
             }
             .r3dcomments-wrapper .r3d-preview-btn {
                 margin-left: 0.5rem;
-                background: #fff;
-                color: #0b5ed7;
-                border: 1px solid #0b5ed7;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 9rem;
+                padding: 0.75rem 1.2rem;
+                border: 1px solid #198754;
+                border-radius: 0.85rem;
+                background: #198754;
+                color: #fff;
+                font-size: 1rem;
+                font-weight: 700;
+                line-height: 1.2;
+                text-decoration: none;
+                box-shadow: 0 10px 24px rgba(25, 135, 84, 0.18);
+                transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+                cursor: pointer;
             }
             .r3dcomments-wrapper .r3d-preview-btn:hover,
             .r3dcomments-wrapper .r3d-preview-btn:focus {
-                background: #e7f1ff;
-                color: #084298;
+                background: #157347;
+                border-color: #157347;
+                color: #fff;
+                transform: translateY(-1px);
+                box-shadow: 0 12px 28px rgba(25, 135, 84, 0.24);
             }
             .r3d-preview-modal {
                 position: fixed;
@@ -324,6 +340,40 @@ static $r3dcommentsInlineStylesPrinted = false;
                 border-radius: 0.8rem;
                 padding: 1rem 1.2rem;
                 box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+            }
+            #r3d-preview-content blockquote {
+                margin: 0.75rem 0;
+                padding: 0.75rem 1rem;
+                border-left: 4px solid #0d6efd;
+                border-radius: 0.35rem;
+                background: rgba(13, 110, 253, 0.08);
+                color: #1f2d3d;
+            }
+            #r3d-preview-content blockquote p {
+                margin: 0;
+            }
+            #r3d-preview-content blockquote cite {
+                display: block;
+                margin-top: 0.5rem;
+                font-style: normal;
+                font-size: 0.9rem;
+                opacity: 0.85;
+            }
+            .r3d-preview-close-btn {
+                border-radius: 0.6rem;
+                border: 1px solid #6c757d;
+                background: #fff;
+                color: #495057;
+                font-weight: 600;
+                padding: 0.5rem 1rem;
+                line-height: 1.25;
+                box-shadow: none;
+            }
+            .r3d-preview-close-btn:hover,
+            .r3d-preview-close-btn:focus {
+                background: #f8f9fa;
+                border-color: #5c636a;
+                color: #343a40;
             }
             #r3d-toast-host {
                 position: fixed;
@@ -639,7 +689,7 @@ static $r3dcommentsInlineStylesPrinted = false;
             <h4>Comment preview</h4>
             <div id="r3d-preview-content"></div>
             <div class="uk-margin-top">
-                <button type="button" class="uk-button uk-button-default" id="r3d-preview-close">Close</button>
+                <button type="button" class="uk-button uk-button-default r3d-preview-close-btn" id="r3d-preview-close">Close</button>
             </div>
         </div>
     </div>
@@ -648,6 +698,7 @@ static $r3dcommentsInlineStylesPrinted = false;
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
+    const formEl = document.getElementById('r3dcomment-form');
     const replyBox     = document.getElementById('r3d-reply-indicator');
     const replyPreview = document.getElementById('r3d-reply-preview');
     const cancelBtn    = document.getElementById('r3d-reply-cancel');
@@ -679,6 +730,8 @@ document.addEventListener('DOMContentLoaded', () => {
         <?php echo json_encode(Text::_('COM_R3DCOMMENTS_DATA_FORM_INFORMATION_RECEIVED_PENDING')); ?>,
         <?php echo json_encode(Text::_('COM_R3DCOMMENTS_ERROR_GUEST_RATE_LIMIT')); ?>
     ];
+    const guestNameInput = formEl ? formEl.querySelector('input[name="jform[author_name]"]') : null;
+    const guestEmailInput = formEl ? formEl.querySelector('input[name="jform[author_email]"]') : null;
 
     document.querySelectorAll('.r3d-reply-btn').forEach((btn) => {
         const text = btn.textContent.replace(/\s+/g, ' ').trim();
@@ -732,13 +785,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const parentId = btn.dataset.parent;
             const quoteId  = btn.dataset.quoteId || parentId;
-            const quote    = btn.dataset.quote;
 
             parentField.value   = parentId;
             quoteIdField.value  = quoteId;
-            quoteTxtField.value = quote;
+            quoteTxtField.value = '';
 
-            replyPreview.innerText = quote;
+            replyPreview.innerText = '';
             replyBox.style.display = 'block';
 
             document.getElementById('r3dcomment-form')
@@ -785,6 +837,55 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const textarea = document.getElementById('jform_comment');
         return textarea ? textarea.value : '';
+    };
+    const appendGuestPreviewNodes = (container, rawValue) => {
+        const value = String(rawValue || '');
+        const decodeEntities = (text) => text
+            .replace(/&mdash;/gi, '—')
+            .replace(/&ndash;/gi, '–')
+            .replace(/&quot;/gi, '"')
+            .replace(/&#039;/gi, "'")
+            .replace(/&amp;/gi, '&');
+        const normalizedValue = decodeEntities(value);
+        const quotePattern = /\[quote=([^\]]+)\]([\s\S]*?)\[\/quote\]/gi;
+        let lastIndex = 0;
+        let match;
+
+        while ((match = quotePattern.exec(normalizedValue)) !== null) {
+            const before = normalizedValue.slice(lastIndex, match.index);
+            if (before.trim() !== '') {
+                const beforeP = document.createElement('p');
+                beforeP.innerHTML = escapeHtml(before).replace(/\n/g, '<br>');
+                container.appendChild(beforeP);
+            }
+
+            const author = (match[1] || '').trim();
+            const body = (match[2] || '').trim();
+            const quoteEl = document.createElement('blockquote');
+            const bodyP = document.createElement('p');
+            bodyP.innerHTML = escapeHtml(body).replace(/\n/g, '<br>');
+            quoteEl.appendChild(bodyP);
+            if (author !== '') {
+                const cite = document.createElement('cite');
+                cite.textContent = '— ' + author;
+                quoteEl.appendChild(cite);
+            }
+            container.appendChild(quoteEl);
+            lastIndex = match.index + match[0].length;
+        }
+
+        const rest = normalizedValue.slice(lastIndex);
+        if (rest.trim() !== '') {
+            const restP = document.createElement('p');
+            restP.innerHTML = escapeHtml(rest).replace(/\n/g, '<br>');
+            container.appendChild(restP);
+        }
+
+        if (!container.hasChildNodes()) {
+            const fallback = document.createElement('p');
+            fallback.innerHTML = escapeHtml(normalizedValue).replace(/\n/g, '<br>');
+            container.appendChild(fallback);
+        }
     };
 
     document.querySelectorAll('.r3d-quote-btn').forEach((btn) => {
@@ -851,30 +952,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (previewOpenBtn && previewModal && previewContent) {
         previewOpenBtn.addEventListener('click', () => {
             const content = getCurrentCommentValue();
-            const quoteText = (quoteTxtField?.value || '').trim();
-            const hasReplyTarget = Number(parentField?.value || 0) > 0;
             previewContent.innerHTML = '';
-
-            if (hasReplyTarget) {
-                const replyBoxEl = document.createElement('div');
-                replyBoxEl.className = 'uk-alert-primary uk-padding-small uk-margin-small-bottom';
-                const replyTitle = document.createElement('strong');
-                replyTitle.textContent = locale.reply + ':';
-                replyBoxEl.appendChild(replyTitle);
-
-                if (quoteText) {
-                    const quoteEl = document.createElement('div');
-                    quoteEl.textContent = quoteText;
-                    replyBoxEl.appendChild(quoteEl);
-                }
-
-                previewContent.appendChild(replyBoxEl);
-            }
 
             if (content && content.trim() !== '') {
                 if (isGuest) {
                     const guestText = document.createElement('div');
-                    guestText.innerHTML = escapeHtml(content).replace(/\n/g, '<br>');
+                    appendGuestPreviewNodes(guestText, content);
                     previewContent.appendChild(guestText);
                 } else {
                     const richText = document.createElement('div');
@@ -930,6 +1013,40 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 4550);
         });
     };
+
+    const showInlineToast = (message, type = 'warning') => {
+        const host = document.getElementById('r3d-toast-host') || (() => {
+            const h = document.createElement('div');
+            h.id = 'r3d-toast-host';
+            document.body.appendChild(h);
+            return h;
+        })();
+        const alert = document.createElement('div');
+        alert.className = `alert alert-${type}`;
+        alert.textContent = message;
+        host.appendChild(alert);
+        window.setTimeout(() => alert.classList.add('r3d-toast-hide'), 4200);
+        window.setTimeout(() => alert.remove(), 4550);
+    };
+
+    if (formEl && isGuest) {
+        formEl.addEventListener('submit', (e) => {
+            const nameValue = (guestNameInput?.value || '').trim();
+            const emailValue = (guestEmailInput?.value || '').trim();
+            const emailLooksValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailValue);
+
+            if (!nameValue || !emailValue || !emailLooksValid) {
+                e.preventDefault();
+                if (!nameValue && guestNameInput) {
+                    guestNameInput.focus();
+                } else if (guestEmailInput) {
+                    guestEmailInput.focus();
+                }
+                showInlineToast('Please enter a valid name and e-mail address before submitting.', 'danger');
+            }
+        });
+    }
+
     processToasts();
     window.setTimeout(processToasts, 250);
 });
