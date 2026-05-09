@@ -841,50 +841,69 @@ document.addEventListener('DOMContentLoaded', () => {
     const appendGuestPreviewNodes = (container, rawValue) => {
         const value = String(rawValue || '');
         const decodeEntities = (text) => text
+            .replace(/&amp;mdash;/gi, '—')
             .replace(/&mdash;/gi, '—')
+            .replace(/&amp;ndash;/gi, '–')
             .replace(/&ndash;/gi, '–')
             .replace(/&quot;/gi, '"')
             .replace(/&#039;/gi, "'")
             .replace(/&amp;/gi, '&');
-        const normalizedValue = decodeEntities(value);
-        const quotePattern = /\[quote=([^\]]+)\]([\s\S]*?)\[\/quote\]/gi;
-        let lastIndex = 0;
-        let match;
-
-        while ((match = quotePattern.exec(normalizedValue)) !== null) {
-            const before = normalizedValue.slice(lastIndex, match.index);
-            if (before.trim() !== '') {
-                const beforeP = document.createElement('p');
-                beforeP.innerHTML = escapeHtml(before).replace(/\n/g, '<br>');
-                container.appendChild(beforeP);
+        const appendTextBlock = (target, text) => {
+            const clean = text.replace(/\[\/?quote(?:=[^\]]+)?\]/gi, '').trim();
+            if (clean === '') {
+                return;
             }
-
-            const author = (match[1] || '').trim();
-            const body = (match[2] || '').trim();
-            const quoteEl = document.createElement('blockquote');
-            const bodyP = document.createElement('p');
-            bodyP.innerHTML = escapeHtml(body).replace(/\n/g, '<br>');
-            quoteEl.appendChild(bodyP);
-            if (author !== '') {
-                const cite = document.createElement('cite');
-                cite.textContent = '— ' + author;
-                quoteEl.appendChild(cite);
+            const p = document.createElement('p');
+            p.innerHTML = escapeHtml(clean).replace(/\n/g, '<br>');
+            target.appendChild(p);
+        };
+        const renderWithPlaceholders = (target, text, blocks) => {
+            const tokenPattern = /__R3D_QUOTE_(\d+)__/g;
+            let last = 0;
+            let m;
+            while ((m = tokenPattern.exec(text)) !== null) {
+                appendTextBlock(target, text.slice(last, m.index));
+                const idx = parseInt(m[1], 10);
+                const block = blocks[idx];
+                if (block) {
+                    const quoteEl = document.createElement('blockquote');
+                    renderWithPlaceholders(quoteEl, block.body, blocks);
+                    if (block.author !== '') {
+                        const cite = document.createElement('cite');
+                        cite.textContent = '— ' + block.author;
+                        quoteEl.appendChild(cite);
+                    }
+                    target.appendChild(quoteEl);
+                }
+                last = m.index + m[0].length;
             }
-            container.appendChild(quoteEl);
-            lastIndex = match.index + match[0].length;
+            appendTextBlock(target, text.slice(last));
+        };
+
+        let working = decodeEntities(value);
+        const blocks = [];
+        const innerQuotePattern = /\[quote=([^\]]+)\]((?:(?!\[quote=|\[\/quote\])[\s\S])*)\[\/quote\]/gi;
+        let guard = 0;
+        let replaced = true;
+
+        while (replaced && guard < 100) {
+            replaced = false;
+            working = working.replace(innerQuotePattern, (full, author, body) => {
+                replaced = true;
+                const token = `__R3D_QUOTE_${blocks.length}__`;
+                blocks.push({
+                    author: String(author || '').trim(),
+                    body: String(body || '').trim()
+                });
+                return token;
+            });
+            guard++;
         }
 
-        const rest = normalizedValue.slice(lastIndex);
-        if (rest.trim() !== '') {
-            const restP = document.createElement('p');
-            restP.innerHTML = escapeHtml(rest).replace(/\n/g, '<br>');
-            container.appendChild(restP);
-        }
+        renderWithPlaceholders(container, working, blocks);
 
         if (!container.hasChildNodes()) {
-            const fallback = document.createElement('p');
-            fallback.innerHTML = escapeHtml(normalizedValue).replace(/\n/g, '<br>');
-            container.appendChild(fallback);
+            appendTextBlock(container, decodeEntities(value));
         }
     };
 
