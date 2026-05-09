@@ -1,3 +1,7 @@
+## 6.1.11 (2026-05-09)
+- Fixed frontend preview modal script output that could break markup and leak JS as visible text.
+- Replaced string-template preview rendering with DOM-based rendering for safer guest/logged-in behavior.
+- Restored guest quote/reply click handling after preview-script break.
 ## 6.1.10 (2026-05-09)
 - Added frontend comment preview modal (Preview) before submit.
 - Reworked message handling to render R3D-related Joomla messages as toast overlays more reliably.
@@ -47,4 +51,5 @@ All notable changes to this package are documented in this file.
 
 ## Older Releases
 - Full history for `6.0.x` is preserved in Git history and prior changelog commits.
+
 

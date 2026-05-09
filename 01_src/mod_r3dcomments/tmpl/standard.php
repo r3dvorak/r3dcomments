@@ -820,15 +820,40 @@ document.addEventListener('DOMContentLoaded', () => {
             const content = getCurrentCommentValue();
             const quoteText = (quoteTxtField?.value || '').trim();
             const hasReplyTarget = Number(parentField?.value || 0) > 0;
-            const safeQuote = escapeHtml(quoteText);
-            const safeContent = isGuest
-                ? escapeHtml(content).replace(/\n/g, '<br>')
-                : content;
-            const replyInfo = hasReplyTarget
-                ? `<div class="uk-alert-primary uk-padding-small uk-margin-small-bottom"><strong>${locale.reply}:</strong>${quoteText ? `<div>${safeQuote}</div>` : ''}</div>`
-                : '';
+            previewContent.innerHTML = '';
 
-            previewContent.innerHTML = replyInfo + (safeContent || '<em>No content yet.</em>');
+            if (hasReplyTarget) {
+                const replyBoxEl = document.createElement('div');
+                replyBoxEl.className = 'uk-alert-primary uk-padding-small uk-margin-small-bottom';
+                const replyTitle = document.createElement('strong');
+                replyTitle.textContent = locale.reply + ':';
+                replyBoxEl.appendChild(replyTitle);
+
+                if (quoteText) {
+                    const quoteEl = document.createElement('div');
+                    quoteEl.textContent = quoteText;
+                    replyBoxEl.appendChild(quoteEl);
+                }
+
+                previewContent.appendChild(replyBoxEl);
+            }
+
+            if (content && content.trim() !== '') {
+                if (isGuest) {
+                    const guestText = document.createElement('div');
+                    guestText.innerHTML = escapeHtml(content).replace(/\n/g, '<br>');
+                    previewContent.appendChild(guestText);
+                } else {
+                    const richText = document.createElement('div');
+                    richText.innerHTML = content;
+                    previewContent.appendChild(richText);
+                }
+            } else {
+                const empty = document.createElement('em');
+                empty.textContent = 'No content yet.';
+                previewContent.appendChild(empty);
+            }
+
             previewModal.classList.add('is-open');
             previewModal.setAttribute('aria-hidden', 'false');
         });
