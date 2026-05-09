@@ -1,3 +1,7 @@
+## 6.1.8 (2026-05-09)
+- Fixed frontend save controller to use validated JForm payload as canonical data.
+- Preserved guest anti-spam helper fields (orm_started_at and configured honeypot field) after validation.
+- Stabilized guest reply/quote persistence (parent_id / quoted_comment_id) in save flow.
 ## 6.1.7 (2026-05-09)
 - Split quote/reply frontend behavior by intent: reply uses reply-preview, quote inserts directly into editor/textarea.
 - Removed quote preview duplication (no duplicate quote in preview + editor).
@@ -196,6 +200,7 @@ All notable changes to this package are documented here.
 
 ### Note
 - Initial package release line.
+
 
 
 

@@ -121,7 +121,9 @@ class CommentController extends FormController
         }
 
         // Validierung (mit unserer angepassten Logik im Model)
-        if (!$model->validate($form, $data))
+        $validData = $model->validate($form, $data);
+
+        if ($validData === false)
         {
             $errors = $model->getErrors();
 
@@ -134,6 +136,18 @@ class CommentController extends FormController
             $this->setRedirect($redirectUrl);
 
             return;
+        }
+
+        // Use validated form data as canonical payload, but preserve anti-spam helper fields
+        // that are intentionally not part of the JForm definition.
+        $rawData = $data;
+        $data    = (array) $validData;
+        $data['form_started_at'] = (int) ($rawData['form_started_at'] ?? 0);
+
+        $honeypotField = trim((string) ($app->getParams('com_r3dcomments')->get('guest_honeypot_field', 'website')));
+        if ($honeypotField !== '' && array_key_exists($honeypotField, $rawData) && !array_key_exists($honeypotField, $data))
+        {
+            $data[$honeypotField] = $rawData[$honeypotField];
         }
 
         if ($user->guest)
