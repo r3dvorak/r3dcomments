@@ -22,11 +22,24 @@ The project is standardized to the shared R3D Joomla workflow (`D:/1DEV/_tools`)
 ## Main Features
 
 - Two-level comments (comment + reply)
-- Quote support in frontend flow
+- Quote support in frontend flow (guest + logged-in)
 - Category-based module filtering
 - Moderation/publication workflow
 - Notification hooks for administrators
 - Rendering mode options for standard templates and UIkit contexts
+
+## Frontend Behavior (Current)
+
+- `Reply`:
+  - sets `parent_id` / `quoted_comment_id`
+  - shows reply preview box
+  - does not auto-insert quote text into editor/textarea
+- `Quote`:
+  - sets `parent_id` / `quoted_comment_id`
+  - inserts quote text directly into input field
+  - guest: inserts into plain textarea
+  - logged-in: inserts into active editor
+  - no duplicate quote preview + editor insertion
 
 ## Standard Project Structure
 
@@ -79,6 +92,7 @@ Configured package feed:
 
 - `scripts/` and `05_updates/` are intentionally local-only and not synced to GitHub.
 - Joomla manifests and XML references use forward slashes `/` only.
+- If quote/reply appears non-responsive after update, clear Joomla cache and browser cache to ensure latest inline JS is loaded.
 
 ## Changelog
 
