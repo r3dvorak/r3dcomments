@@ -292,6 +292,51 @@ static $r3dcommentsInlineStylesPrinted = false;
             .r3dcomments-wrapper-standard #r3dcomment-form button {
                 margin-top: 0.5rem;
             }
+            .r3dcomments-wrapper .r3d-preview-btn {
+                margin-left: 0.5rem;
+                background: #fff;
+                color: #0b5ed7;
+                border: 1px solid #0b5ed7;
+            }
+            .r3dcomments-wrapper .r3d-preview-btn:hover,
+            .r3dcomments-wrapper .r3d-preview-btn:focus {
+                background: #e7f1ff;
+                color: #084298;
+            }
+            .r3d-preview-modal {
+                position: fixed;
+                inset: 0;
+                z-index: 2100;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                background: rgba(0, 0, 0, 0.45);
+                padding: 1rem;
+            }
+            .r3d-preview-modal.is-open {
+                display: flex;
+            }
+            .r3d-preview-dialog {
+                width: min(760px, 100%);
+                max-height: 86vh;
+                overflow: auto;
+                background: #fff;
+                border-radius: 0.8rem;
+                padding: 1rem 1.2rem;
+                box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+            }
+            #r3d-toast-host {
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                z-index: 2200;
+                width: min(28rem, calc(100vw - 2rem));
+                pointer-events: none;
+            }
+            #r3d-toast-host > * {
+                pointer-events: auto;
+                margin-bottom: 0.75rem;
+            }
 
             #system-message-container.r3d-toast-container {
                 position: fixed;
@@ -580,11 +625,24 @@ static $r3dcommentsInlineStylesPrinted = false;
                 <button class="uk-button uk-button-primary uk-margin-small-top r3d-submit-btn">
                     <?php echo Text::_('COM_R3DCOMMENTS_SUBMIT'); ?>
                 </button>
+                <button type="button" class="uk-button uk-margin-small-top r3d-preview-btn" id="r3d-preview-open">
+                    Preview
+                </button>
 
                 <?php echo HTMLHelper::_('form.token'); ?>
             </form>
         </div>
     <?php endif; ?>
+
+    <div id="r3d-preview-modal" class="r3d-preview-modal" aria-hidden="true">
+        <div class="r3d-preview-dialog">
+            <h4>Comment preview</h4>
+            <div id="r3d-preview-content"></div>
+            <div class="uk-margin-top">
+                <button type="button" class="uk-button uk-button-default" id="r3d-preview-close">Close</button>
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -593,6 +651,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const replyBox     = document.getElementById('r3d-reply-indicator');
     const replyPreview = document.getElementById('r3d-reply-preview');
     const cancelBtn    = document.getElementById('r3d-reply-cancel');
+    const previewOpenBtn = document.getElementById('r3d-preview-open');
+    const previewCloseBtn = document.getElementById('r3d-preview-close');
+    const previewModal = document.getElementById('r3d-preview-modal');
+    const previewContent = document.getElementById('r3d-preview-content');
     const parentField  = document.getElementById('r3d-parent');
     const quoteIdField = document.getElementById('r3d-quote-id');
     const quoteTxtField= document.getElementById('r3d-quote-text');
@@ -714,6 +776,16 @@ document.addEventListener('DOMContentLoaded', () => {
             textarea.focus();
         }
     };
+    const getCurrentCommentValue = () => {
+        if (!isGuest && window.tinymce) {
+            const editor = tinymce.get('jform_comment');
+            if (editor) {
+                return editor.getContent() || '';
+            }
+        }
+        const textarea = document.getElementById('jform_comment');
+        return textarea ? textarea.value : '';
+    };
 
     document.querySelectorAll('.r3d-quote-btn').forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -776,47 +848,64 @@ document.addEventListener('DOMContentLoaded', () => {
             replyBox.style.display = 'none';
         });
     }
+    if (previewOpenBtn && previewModal && previewContent) {
+        previewOpenBtn.addEventListener('click', () => {
+            const content = getCurrentCommentValue();
+            const quoteText = (quoteTxtField?.value || '').trim();
+            const hasReplyTarget = Number(parentField?.value || 0) > 0;
+            const safeQuote = escapeHtml(quoteText);
+            const safeContent = isGuest
+                ? escapeHtml(content).replace(/\n/g, '<br>')
+                : content;
+            const replyInfo = hasReplyTarget
+                ? `<div class="uk-alert-primary uk-padding-small uk-margin-small-bottom"><strong>${locale.reply}:</strong>${quoteText ? `<div>${safeQuote}</div>` : ''}</div>`
+                : '';
 
-    const systemMessageContainer = document.getElementById('system-message-container');
+            previewContent.innerHTML = replyInfo + (safeContent || '<em>No content yet.</em>');
+            previewModal.classList.add('is-open');
+            previewModal.setAttribute('aria-hidden', 'false');
+        });
+    }
+    if (previewCloseBtn && previewModal) {
+        previewCloseBtn.addEventListener('click', () => {
+            previewModal.classList.remove('is-open');
+            previewModal.setAttribute('aria-hidden', 'true');
+        });
+    }
 
-    if (systemMessageContainer) {
-        const alerts = systemMessageContainer.querySelectorAll('joomla-alert, .alert');
-        let matchedAlerts = 0;
-
-        alerts.forEach((alert) => {
-            const text = alert.textContent.replace(/\s+/g, ' ').trim();
-            const alertType = (alert.getAttribute('type') || '').toLowerCase();
-            const isSuccessLike = alertType === 'success' || alert.classList.contains('alert-success');
-            const isR3dMessage = toastMessages.some((message) => message && text.includes(message));
-            const hasR3dModule = document.querySelector('.r3dcomments-wrapper') !== null;
-            const shouldToast = isR3dMessage || (hasR3dModule && isSuccessLike);
-
-            if (!shouldToast) {
+    const processToasts = () => {
+        const host = document.getElementById('r3d-toast-host') || (() => {
+            const h = document.createElement('div');
+            h.id = 'r3d-toast-host';
+            document.body.appendChild(h);
+            return h;
+        })();
+        const candidates = document.querySelectorAll('#system-message-container joomla-alert, #system-message-container .alert, joomla-alert');
+        candidates.forEach((alert) => {
+            if (alert.dataset && alert.dataset.r3dToasted === '1') {
                 return;
             }
-
-            matchedAlerts += 1;
-
-            window.setTimeout(() => {
-                alert.classList.add('r3d-toast-hide');
-            }, 4200);
-
+            const text = (alert.textContent || '').replace(/\s+/g, ' ').trim();
+            const alertType = (alert.getAttribute('type') || '').toLowerCase();
+            const isSuccessLike = alertType === 'success' || alert.classList.contains('alert-success') || alert.classList.contains('alert-message');
+            const isR3dMessage = toastMessages.some((message) => message && text.includes(message));
+            if (!(isR3dMessage || isSuccessLike)) {
+                return;
+            }
+            if (alert.dataset) {
+                alert.dataset.r3dToasted = '1';
+            }
+            host.appendChild(alert);
+            window.setTimeout(() => alert.classList.add('r3d-toast-hide'), 4200);
             window.setTimeout(() => {
                 if (typeof alert.close === 'function') {
-                    try {
-                        alert.close();
-                        return;
-                    } catch (error) {
-                    }
+                    try { alert.close(); return; } catch (error) {}
                 }
-
                 alert.remove();
             }, 4550);
         });
-
-        if (matchedAlerts > 0) {
-            systemMessageContainer.classList.add('r3d-toast-container');
-        }
-    }
+    };
+    processToasts();
+    window.setTimeout(processToasts, 250);
 });
 </script>
