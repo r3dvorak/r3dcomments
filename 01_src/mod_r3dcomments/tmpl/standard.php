@@ -650,12 +650,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const escapeHtml = (value) => value
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+    const escapeHtml = (value) => {
+        const lt = String.fromCharCode(60);
+        const gt = String.fromCharCode(62);
+
+        return value
+            .replace(/&/g, '&amp;')
+            .split(lt).join('&lt;')
+            .split(gt).join('&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    };
 
     const insertIntoCommentEditor = (html, fallbackText) => {
         if (!isGuest && window.tinymce) {

@@ -1,3 +1,6 @@
+## 6.1.9 (2026-05-09)
+- Fixed frontend JS breakage in quote/reply flow caused by runtime-mangled </> regex literals in inline script output.
+- Replaced HTML escaping logic with character-code based implementation to keep quote/reply handlers executable in guest and logged-in views.
 ## 6.1.8 (2026-05-09)
 - Fixed frontend save controller to use validated JForm payload as canonical data.
 - Preserved guest anti-spam helper fields (orm_started_at and configured honeypot field) after validation.
@@ -200,6 +203,7 @@ All notable changes to this package are documented here.
 
 ### Note
 - Initial package release line.
+
 
 
 
