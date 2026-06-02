@@ -16,9 +16,9 @@ defined('_JEXEC') or die;
 use JUser;
 use Form;
 use Exception;
-use JHtmlSidebar;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\Helpers\Sidebar;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\Component\R3dcomments\Administrator\Helper\R3dcommentsHelper;
@@ -98,7 +98,7 @@ class HtmlView extends BaseHtmlView
 	 */
 	public function display($tpl = null)
 	{
-		$this->user	      = Factory::getUser();
+		$this->user	      = Factory::getApplication()->getIdentity();
 
 		$model            = $this->getModel();
 		$this->state      = $model->getState();
@@ -204,7 +204,7 @@ class HtmlView extends BaseHtmlView
 		// ---------------------------------------
 		ToolbarHelper::help('COM_R3DCOMMENTS_HELP', false, 'index.php?option=com_r3dcomments&view=help');
 
-		JHtmlSidebar::addFilter(
+		Sidebar::addFilter(
 			Text::_('JOPTION_SELECT_PUBLISHED'),
 			'filter_published',
 			HTMLHelper::_('select.options', HTMLHelper::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.state'), true)
@@ -224,7 +224,7 @@ class HtmlView extends BaseHtmlView
 		$wa->registerAndUseStyle('com_r3dcomments.admin.style', 'com_r3dcomments/css/r3dcomments.admin.css');
 		$wa->registerAndUseScript('com_r3dcomments.admin.list.script', 'com_r3dcomments/js/list.admin.js');
 
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 		$this->listOrder = $this->escape($this->state->get('list.ordering'));
 		$this->listDirn = $this->escape($this->state->get('list.direction'));
 		$user->authorise('core.edit.state', 'com_r3dcomments.category');

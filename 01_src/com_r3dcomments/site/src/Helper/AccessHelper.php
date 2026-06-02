@@ -25,9 +25,9 @@ class AccessHelper
      * @param string $table
      * @return void
      */
-    public function preloadOwnRecords(string $table): void
-    {
-        $user = Factory::getUser();
+	public function preloadOwnRecords(string $table): void
+	{
+		$user = Factory::getApplication()->getIdentity();
         $db = Factory::getDbo();
         $query = $db->getQuery(true)
             ->select('id, created_by')
@@ -61,7 +61,7 @@ class AccessHelper
                 $id = $paramId;
             }
         }
-        $user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
         $userId = $this->ownRecordsById[$id] ?? 0;
         return $userId === (int)$user->id && $user->authorise('core.edit.own', 'com_r3dcomments');
     }

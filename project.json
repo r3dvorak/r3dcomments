@@ -5,9 +5,9 @@
     "vendor": "r3d",
     "description": "Joomla extension suite for R3D Comments (component + module).",
     "updateServerUrl": "https://www.r3d.de/joomlaextensions/updates/pkg_r3dcomments.xml",
-    "changelogUrl": "https://github.com/r3dvorak/r3dcomments/blob/feature/standardize-r3d-comments-package/CHANGELOG.md",
+    "changelogUrl": "https://github.com/r3dvorak/r3dcomments/blob/fix/jed-checker-compliance/CHANGELOG.md",
     "defaults": {
-      "version": "6.1.11",
+      "version": "6.1.13",
       "creationDate": "2026-05-08"
     },
     "author": {

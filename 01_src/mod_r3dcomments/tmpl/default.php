@@ -643,7 +643,7 @@ static $r3dcommentsInlineStylesPrinted = false;
 
                 <input type="hidden" name="jform[item_id]" value="<?php echo (int) $itemId; ?>">
                 <input type="hidden" name="jform[context]" value="<?php echo htmlspecialchars($context, ENT_QUOTES, 'UTF-8'); ?>">
-                <input type="hidden" name="return" value="<?php echo base64_encode(Uri::getInstance()->toString()); ?>">
+                <input type="hidden" name="return" value="<?php echo htmlspecialchars(Uri::getInstance()->toString(), ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="jform[parent_id]" id="r3d-parent" value="0">
                 <input type="hidden" name="jform[quoted_comment_id]" id="r3d-quote-id" value="0">
                 <input type="hidden" name="jform[quoted_comment_text]" id="r3d-quote-text" value="">

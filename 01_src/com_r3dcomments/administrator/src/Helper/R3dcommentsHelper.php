@@ -13,6 +13,7 @@ namespace Joomla\Component\R3dcomments\Administrator\Helper;
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\Helpers\Sidebar;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\Mysqli\MysqliQuery;
 
@@ -28,7 +29,7 @@ class R3dcommentsHelper
 	 */
 	public static function addSubmenu($name = '')
 	{
-		\JHtmlSidebar::addEntry(
+		Sidebar::addEntry(
 			Text::_('COM_R3DCOMMENTS_TITLE_COMMENTS'),
 			'index.php?option=com_r3dcomments&view=comments',
 			$name === 'comments'
@@ -43,7 +44,7 @@ class R3dcommentsHelper
 	 */
 	public static function getActions() : array
 	{
-		$user	= Factory::getUser();
+		$user	= Factory::getApplication()->getIdentity();
 		$result	= [];
 
 		$assetName = 'com_r3dcomments';

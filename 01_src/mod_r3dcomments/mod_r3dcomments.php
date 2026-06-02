@@ -32,7 +32,7 @@ $itemObject = (object) [
 ];
 
 // --- NEU: Abonnement-Button/Link anzeigen ---
-$user = Factory::getUser();
+$user = Factory::getApplication()->getIdentity();
 $itemId = (int) $pageContext['item_id'];
 $context = (string) $pageContext['context'];
 

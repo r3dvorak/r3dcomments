@@ -19,6 +19,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Crypt\Crypt;
 use Joomla\CMS\Captcha\Captcha;
+use Joomla\CMS\User\UserFactoryInterface;
 use RuntimeException;
 use DateInterval;
 
@@ -501,7 +502,13 @@ class CommentController extends FormController
 
         $config    = Factory::getConfig();
         $mailer    = Factory::getMailer();
-        $authorUser = Factory::getUser($authorId);
+        $userFactory = Factory::getContainer()->get(UserFactoryInterface::class);
+        $authorUser = $authorId > 0 ? $userFactory->loadUserById($authorId) : null;
+
+        if (!$authorUser)
+        {
+            $authorUser = Factory::getApplication()->getIdentity();
+        }
         $authorName = $authorUser->guest ? $comment->guest_author_name : $authorUser->name;
 
         $articleUrl = Uri::root() . ltrim(
@@ -539,7 +546,7 @@ class CommentController extends FormController
     public function toggleSubscription(): void
     {
         $app  = Factory::getApplication();
-        $user = Factory::getUser();
+        $user = $app->getIdentity();
 
         if ($user->guest) {
             $app->enqueueMessage(Text::_('COM_R3DCOMMENTS_SUBSCRIPTION_LOGIN_REQUIRED'), 'error');
@@ -640,15 +647,15 @@ class CommentController extends FormController
     protected function resolveReturnRedirectUrl(string $context, int $itemId): string
     {
         $input = ($this->app ?? Factory::getApplication())->getInput();
-        $return = (string) $input->post->getBase64('return', '');
+        $return = trim((string) $input->post->getString('return', ''));
 
         if ($return !== '')
         {
-            $decoded = base64_decode($return, true);
-
-            if (is_string($decoded) && $decoded !== '' && Uri::isInternal($decoded))
+            // The form stores the current page URL as plain text and we only
+            // accept internal targets here to avoid open redirects.
+            if (Uri::isInternal($return))
             {
-                return Route::_($decoded, false);
+                return Route::_($return, false);
             }
         }
 

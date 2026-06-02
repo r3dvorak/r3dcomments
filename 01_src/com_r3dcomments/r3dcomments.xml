@@ -7,7 +7,7 @@
     <author>Richard Dvorak</author>
     <authorEmail>dev@r3d.de</authorEmail>
     <authorUrl>https://www.r3d.de</authorUrl>
-    <version>6.1.11</version>
+    <version>6.1.13</version>
     <description>R3D Comments is a simple Joomla 5 component for managing user comments using modern Joomla MVC architecture. Frontend users can submit comments and reply to existing comments — replies are limited to one level (no deep threaded trees).</description>
     <namespace path="src">Joomla\Component\R3dcomments</namespace>
 
@@ -53,7 +53,7 @@
     <administration>
         <menu>COM_R3DCOMMENTS</menu>  
         <submenu>
-            <menu link="option=com_r3dcomments&amp;view=comments" view="comments" img="media/com_r3dcomments/images/view-16x16-comments.png" alt="R3dcomments/Comments">COM_R3DCOMMENTS_TITLE_COMMENTS</menu>
+            <menu link="option=com_r3dcomments&amp;view=comments" img="media/com_r3dcomments/images/view-16x16-comments.png" alt="R3dcomments/Comments">COM_R3DCOMMENTS_TITLE_COMMENTS</menu>
         </submenu>
         <files folder="administrator">
             <filename>access.xml</filename>

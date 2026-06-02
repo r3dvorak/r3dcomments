@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     pkg_r3dcomments
- * @version     6.1.4
+ * @version     6.1.13
  * @date        2026-05-08
  * @author      Richard Dvorak, <dev@r3d.de> - https://www.r3d.de
  * @license     https://www.gnu.org/licenses/agpl-3.0.txt GNU Affero General Public License, version 3 or later

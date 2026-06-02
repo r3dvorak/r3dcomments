@@ -8,7 +8,7 @@
  * @author      Richard Dvořák, <dev@r3d.de> - https://r3d.de
  */
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 

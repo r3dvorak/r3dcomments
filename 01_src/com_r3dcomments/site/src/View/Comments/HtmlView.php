@@ -80,7 +80,7 @@ class HtmlView extends BaseHtmlView
 	public function display($tpl = null)
 	{
         $app = Factory::getApplication();
-        $user = Factory::getUser();
+        $user = Factory::getApplication()->getIdentity();
 
         $this->params = $app->getParams('com_r3dcomments');
         $this->item_id = $app->input->getInt('Itemid');

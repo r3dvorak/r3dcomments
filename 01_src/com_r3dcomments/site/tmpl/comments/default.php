@@ -1,7 +1,10 @@
 <?php
 /**
  * @package     com_r3dcomments
- * @version     6.1.4
+ * @version     6.1.13
+ * @copyright   Copyright (C) 2025. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @author      Richard Dvorak, <dev@r3d.de> - https://www.r3d.de
  */
 
 defined('_JEXEC') or die;
@@ -219,7 +222,7 @@ $formatDisplayDate = static function (?string $rawDate) use ($app): string {
 
                 <input type="hidden" name="jform[item_id]" value="<?php echo (int) $itemId; ?>">
                 <input type="hidden" name="jform[context]" value="<?php echo htmlspecialchars($context, ENT_QUOTES, 'UTF-8'); ?>">
-                <input type="hidden" name="return" value="<?php echo base64_encode(Uri::getInstance()->toString()); ?>">
+                <input type="hidden" name="return" value="<?php echo htmlspecialchars(Uri::getInstance()->toString(), ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="jform[parent_id]" id="r3d-parent" value="0">
                 <input type="hidden" name="jform[quoted_comment_id]" id="r3d-quote-id" value="0">
                 <input type="hidden" name="jform[quoted_comment_text]" id="r3d-quote-text" value="">
