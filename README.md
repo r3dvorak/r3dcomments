@@ -4,8 +4,6 @@ R3D Comments is a privacy-friendly Joomla comments solution with a package that 
 - `com_r3dcomments` (component)
 - `mod_r3dcomments` (frontend module)
 
-The project is standardized to the shared R3D Joomla workflow (`D:/1DEV/_tools`).
-
 Current release: `6.1.14`.
 
 ## Compatibility
@@ -43,44 +41,10 @@ Current release: `6.1.14`.
   - logged-in: inserts into active editor
   - no duplicate quote preview + editor insertion
 
-## Standard Project Structure
-
-```text
-r3dcomments/
-├── 01_src/        # extension sources (component/module/package manifest/script)
-├── 02_build/      # local build workspace (ignored)
-├── 03_docs/       # local docs/logs (ignored)
-├── 04_dist/       # generated ZIP artifacts (ignored)
-├── 05_updates/    # local update/publish workspace (ignored)
-├── project.json   # metadata source of truth
-├── VERSION
-├── README.md
-└── CHANGELOG.md
-```
-
-## Build Workflow
-
-Run from project root `D:/1DEV/pkgs/r3dcomments`:
-
-1. Build extension ZIPs:
-```powershell
-D:/1DEV/_tools/04-build-extension.ps1
-```
-
-2. Build package ZIP:
-```powershell
-D:/1DEV/_tools/05-build-package.ps1
-```
-
-Expected output:
-- `04_dist/com_r3dcomments-<version>.zip`
-- `04_dist/mod_r3dcomments-<version>.zip`
-- `04_dist/pkg_r3dcomments-<version>.zip`
-
 ## Installation
 
 1. Open Joomla backend: `Extensions -> Manage -> Install`.
-2. Upload `pkg_r3dcomments-<version>.zip` from `04_dist`.
+2. Upload the `pkg_r3dcomments-<version>.zip` package archive.
 3. Verify both extensions are installed:
 - component: `com_r3dcomments`
 - module: `mod_r3dcomments`
@@ -92,7 +56,6 @@ Configured package feed:
 
 ## Notes
 
-- `scripts/` and `05_updates/` are intentionally local-only and not synced to GitHub.
 - Joomla manifests and XML references use forward slashes `/` only.
 - If quote/reply appears non-responsive after update, clear Joomla cache and browser cache to ensure latest inline JS is loaded.
 
