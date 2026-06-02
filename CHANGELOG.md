@@ -2,6 +2,10 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.12 (2026-06-02)
+- Bumped the package release to keep the component, module, and package metadata in sync.
+- Kept the JED compliance fixes from the previous release as the baseline for this build.
+
 ## 6.1.11 (2026-05-09)
 - Fixed frontend preview modal script output that could break markup and leak JS as visible text.
 - Replaced string-template preview rendering with DOM-based rendering for safer guest/logged-in behavior.
