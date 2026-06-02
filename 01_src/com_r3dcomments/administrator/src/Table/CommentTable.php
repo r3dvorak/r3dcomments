@@ -47,8 +47,9 @@ class CommentTable extends Table
     {
 		$input = Factory::getApplication()->input;
 		$task = $input->getString('task', '');
+		$user = Factory::getApplication()->getIdentity();
 
-        if(($task == 'save' || $task == 'apply') && (!Factory::getUser()->authorise('core.edit.state','com_r3dcomments') && !isset($data['id']))) {
+        if(($task == 'save' || $task == 'apply') && (!$user->authorise('core.edit.state','com_r3dcomments') && !isset($data['id']))) {
             $data['state'] = 0;
         }
 
@@ -66,7 +67,7 @@ class CommentTable extends Table
             $data['metadata'] = (string) $registry;
         }
 
-        if(!Factory::getUser()->authorise('core.admin', 'com_r3dcomments.comment.'.$data['id']))
+        if(!$user->authorise('core.admin', 'com_r3dcomments.comment.'.$data['id']))
         {
             $actions = ContentHelper::getActions('com_r3dcomments','comment');
             $defaultActions = Access::getAssetRules('com_r3dcomments.comment.'.$data['id'])->getData();

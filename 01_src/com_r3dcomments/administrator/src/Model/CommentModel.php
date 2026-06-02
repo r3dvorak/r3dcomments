@@ -109,7 +109,7 @@ class CommentModel extends AdminModel
 			$this->batchSet = true;
 
 			// Get current user
-			$this->user = Factory::getUser();
+			$this->user = Factory::getApplication()->getIdentity();
 
 			// Get table
 			$this->table = $this->getTable();

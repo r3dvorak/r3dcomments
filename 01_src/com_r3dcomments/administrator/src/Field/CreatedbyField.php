@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Factory;
+use Joomla\CMS\User\UserFactoryInterface;
 
 /**
  * The form field implementation
@@ -35,7 +36,8 @@ class CreatedbyField extends ListField
 	 */
 	protected function getInput()
 	{
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
+		$userFactory = Factory::getContainer()->get(UserFactoryInterface::class);
 
 		$userExists = true;
 
@@ -48,7 +50,7 @@ class CreatedbyField extends ListField
 			$db->setQuery($query);
 			$userId = $db->loadResult();
 			if ($userId) {
-				$user = Factory::getUser($this->value);
+				$user = $userFactory->loadUserById((int) $this->value) ?: $user;
 			} else {
 				$userExists = false;
 				$this->value = $user->id;
