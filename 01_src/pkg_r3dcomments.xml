@@ -18,12 +18,11 @@
     </files>
 
     <updateservers>
-        <server type="extension" priority="1" name="R3D Comments Update Server">https://www.r3d.de/joomlaextensions/updates/pkg_r3dcomments.xml</server>
+        <server type="extension" priority="1" name="R3D Comments Update Server">https://extensions.r3d.de/extensions/r3dcomments/pkg_r3dcomments.xml</server>
     </updateservers>
 
     <scriptfile>script.pkg_r3dcomments.php</scriptfile>
 </extension>
-
 
 
 

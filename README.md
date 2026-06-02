@@ -52,7 +52,7 @@ Current release: `6.1.15`.
 ## Update Server
 
 Configured package feed:
-- `https://www.r3d.de/joomlaextensions/updates/pkg_r3dcomments.xml`
+- `https://extensions.r3d.de/extensions/r3dcomments/pkg_r3dcomments.xml`
 
 ## Notes
 
