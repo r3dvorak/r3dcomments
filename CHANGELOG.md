@@ -2,6 +2,10 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.15 (2026-06-02)
+- Release uptick to keep the package, component, module, and documentation metadata aligned.
+- Preserved the current JED compliance baseline and Joomla 4.4/5 compatibility behavior.
+
 ## 6.1.14 (2026-06-02)
 - Release uptick to keep the package, component, module, and documentation metadata aligned.
 - Preserved the current JED compliance baseline and Joomla 4.4/5 compatibility behavior.

@@ -7,7 +7,7 @@
     "updateServerUrl": "https://www.r3d.de/joomlaextensions/updates/pkg_r3dcomments.xml",
     "changelogUrl": "https://github.com/r3dvorak/r3dcomments/blob/main/CHANGELOG.md",
     "defaults": {
-      "version": "6.1.14",
+      "version": "6.1.15",
       "creationDate": "2026-05-08"
     },
     "author": {
@@ -33,7 +33,6 @@
     "versioning": "semver"
   }
 }
-
 
 
 
