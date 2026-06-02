@@ -53,7 +53,7 @@
     <administration>
         <menu>COM_R3DCOMMENTS</menu>  
         <submenu>
-            <menu link="option=com_r3dcomments&amp;view=comments" view="comments" img="media/com_r3dcomments/images/view-16x16-comments.png" alt="R3dcomments/Comments">COM_R3DCOMMENTS_TITLE_COMMENTS</menu>
+            <menu link="option=com_r3dcomments&amp;view=comments" img="media/com_r3dcomments/images/view-16x16-comments.png" alt="R3dcomments/Comments">COM_R3DCOMMENTS_TITLE_COMMENTS</menu>
         </submenu>
         <files folder="administrator">
             <filename>access.xml</filename>

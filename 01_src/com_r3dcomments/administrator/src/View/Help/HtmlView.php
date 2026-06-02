@@ -10,7 +10,7 @@
 
 namespace Joomla\Component\R3dcomments\Administrator\View\Help;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Language\Text;

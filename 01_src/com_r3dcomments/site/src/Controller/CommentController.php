@@ -644,6 +644,8 @@ class CommentController extends FormController
 
         if ($return !== '')
         {
+            // The form stores the current page URL in base64; strict decoding plus
+            // Uri::isInternal() keeps the redirect limited to same-site targets.
             $decoded = base64_decode($return, true);
 
             if (is_string($decoded) && $decoded !== '' && Uri::isInternal($decoded))
