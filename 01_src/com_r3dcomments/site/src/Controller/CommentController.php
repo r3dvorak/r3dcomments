@@ -640,17 +640,15 @@ class CommentController extends FormController
     protected function resolveReturnRedirectUrl(string $context, int $itemId): string
     {
         $input = ($this->app ?? Factory::getApplication())->getInput();
-        $return = (string) $input->post->getBase64('return', '');
+        $return = trim((string) $input->post->getString('return', ''));
 
         if ($return !== '')
         {
-            // The form stores the current page URL in base64; strict decoding plus
-            // Uri::isInternal() keeps the redirect limited to same-site targets.
-            $decoded = base64_decode($return, true);
-
-            if (is_string($decoded) && $decoded !== '' && Uri::isInternal($decoded))
+            // The form stores the current page URL as plain text and we only
+            // accept internal targets here to avoid open redirects.
+            if (Uri::isInternal($return))
             {
-                return Route::_($decoded, false);
+                return Route::_($return, false);
             }
         }
 
