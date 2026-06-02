@@ -6,7 +6,7 @@ R3D Comments is a privacy-friendly Joomla comments solution with a package that 
 
 The project is standardized to the shared R3D Joomla workflow (`D:/1DEV/_tools`).
 
-Current release: `6.1.13`.
+Current release: `6.1.14`.
 
 ## Compatibility
 
