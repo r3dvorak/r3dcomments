@@ -2,6 +2,10 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.13 (2026-06-02)
+- Release uptick to keep the package, component, module, and documentation metadata aligned.
+- Preserved the current JED compliance baseline and redirect handling behavior.
+
 ## 6.1.12 (2026-06-02)
 - Bumped the package release to keep the component, module, and package metadata in sync.
 - Kept the JED compliance fixes from the previous release as the baseline for this build.

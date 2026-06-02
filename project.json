@@ -7,7 +7,7 @@
     "updateServerUrl": "https://www.r3d.de/joomlaextensions/updates/pkg_r3dcomments.xml",
     "changelogUrl": "https://github.com/r3dvorak/r3dcomments/blob/fix/jed-checker-compliance/CHANGELOG.md",
     "defaults": {
-      "version": "6.1.12",
+      "version": "6.1.13",
       "creationDate": "2026-05-08"
     },
     "author": {
