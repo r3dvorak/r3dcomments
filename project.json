@@ -2,19 +2,21 @@
   "project": {
     "name": "R3D Comments",
     "slug": "r3dcomments",
+    "artifactBaseName": "pkg_r3dcomments",
     "vendor": "r3d",
     "description": "Joomla extension suite for R3D Comments (component + module).",
     "updateServerUrl": "https://extensions.r3d.de/extensions/r3dcomments/pkg_r3dcomments.xml",
     "changelogUrl": "https://github.com/r3dvorak/r3dcomments/blob/main/CHANGELOG.md",
     "defaults": {
-      "version": "6.1.15",
+      "version": "6.1.17",
       "creationDate": "2026-05-08"
     },
     "author": {
       "name": "Richard Dvorak",
       "email": "dev@r3d.de",
-      "url": "https://www.r3d.de"
+      "url": "https://extensions.r3d.de"
     },
+    "year": 2026,
     "license": "GPL-2.0-or-later"
   },
   "updates": {
@@ -33,11 +35,6 @@
     "versioning": "semver"
   }
 }
-
-
-
-
-
 
 
 

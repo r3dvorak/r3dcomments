@@ -97,6 +97,7 @@ class CommentController extends FormController
 
         // Get POSTed data
         $data = (array) $input->post->get('jform', [], 'array');
+        $rawData = $data;
 
         // Ensure we have context & item_id (from hidden fields / plugin)
         $context          = $data['context'] ?? $input->getString('context', 'com_content.article');
@@ -139,23 +140,15 @@ class CommentController extends FormController
             return;
         }
 
-        // Use validated form data as canonical payload, but preserve anti-spam helper fields
-        // that are intentionally not part of the JForm definition.
-        $rawData = $data;
-        $data    = (array) $validData;
-        $data['form_started_at'] = (int) ($rawData['form_started_at'] ?? 0);
-
-        $honeypotField = trim((string) ($app->getParams('com_r3dcomments')->get('guest_honeypot_field', 'website')));
-        if ($honeypotField !== '' && array_key_exists($honeypotField, $rawData) && !array_key_exists($honeypotField, $data))
-        {
-            $data[$honeypotField] = $rawData[$honeypotField];
-        }
+        // Use validated form data as canonical payload.
+        $data = (array) $validData;
 
         if ($user->guest)
         {
             try
             {
-                $this->validateGuestSpamProtection($data);
+                // Spam protection depends on raw POST fields such as captcha and honeypot.
+                $this->validateGuestSpamProtection($rawData);
             }
             catch (RuntimeException $e)
             {
@@ -705,7 +698,8 @@ class CommentController extends FormController
 
         if ($newState !== null)
         {
-            $model->publish([$id], $newState);
+            $table = $model->getTable('Comment', 'Administrator');
+            $table->publish([$id], $newState);
             $app->enqueueMessage($message, 'message');
         }
 

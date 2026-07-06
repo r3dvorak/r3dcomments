@@ -2,6 +2,11 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.17 (2026-07-06)
+- Fixed frontend guest captcha validation to read the raw posted captcha response instead of the JForm-filtered payload.
+- Fixed moderation email publish/trash links to use the administrator table API instead of a missing site model method.
+- Kept package metadata aligned for the next release build.
+
 ## 6.1.16 (2026-07-06)
 - Fixed Joomla 5 package upgrade SQL by removing prepared-statement execution from the migration.
 - Kept the package, component, module, and update feed metadata aligned with the new release.
