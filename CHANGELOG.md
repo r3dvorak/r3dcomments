@@ -2,6 +2,10 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.18 (2026-07-07)
+- Fixed frontend guest captcha validation to accept the Joomla 6.1 proof-of-work response payload as well as the legacy captcha field name.
+- Kept the release metadata aligned for the next package build.
+
 ## 6.1.17 (2026-07-06)
 - Fixed frontend guest captcha validation to read the raw posted captcha response instead of the JForm-filtered payload.
 - Fixed moderation email publish/trash links to use the administrator table API instead of a missing site model method.

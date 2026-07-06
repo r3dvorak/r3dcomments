@@ -409,12 +409,41 @@ class CommentController extends FormController
         }
 
         $captcha = Captcha::getInstance($defaultCaptcha, ['namespace' => 'plg_captcha_' . $defaultCaptcha]);
-        $captchaResponse = $data['captcha'] ?? null;
+        $captchaResponse = $this->extractCaptchaResponse($data, $app->getInput());
 
         if (!$captcha || !$captcha->checkAnswer($captchaResponse))
         {
             throw new RuntimeException(Text::_('COM_R3DCOMMENTS_ERROR_INVALID_CAPTCHA'), 400);
         }
+    }
+
+    protected function extractCaptchaResponse(array $data, $input): ?string
+    {
+        $candidates = [
+            $data['captcha'] ?? null,
+            $data['altcha'] ?? null,
+        ];
+
+        if (is_object($input) && method_exists($input, 'get'))
+        {
+            $candidates[] = $input->post->getString('captcha', '');
+            $candidates[] = $input->post->getString('altcha', '');
+        }
+
+        foreach ($candidates as $candidate)
+        {
+            if (is_string($candidate))
+            {
+                $candidate = trim($candidate);
+
+                if ($candidate !== '')
+                {
+                    return $candidate;
+                }
+            }
+        }
+
+        return null;
     }
 
     protected function countLinks(string $comment): int
