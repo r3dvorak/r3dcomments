@@ -17,6 +17,29 @@ use RuntimeException;
 class SubscriptionModel extends BaseDatabaseModel
 {
     /**
+     * Check whether a user is already subscribed to a content item.
+     */
+    public function isSubscribed(int $userId, string $context, int $itemId): bool
+    {
+        if ($userId <= 0 || $context === '' || $itemId <= 0) {
+            return false;
+        }
+
+        $db = Factory::getDbo();
+
+        $query = $db->getQuery(true)
+            ->select('COUNT(*)')
+            ->from('#__r3dcomments_subscriptions')
+            ->where('user_id = ' . (int) $userId)
+            ->where('context = ' . $db->quote($context))
+            ->where('item_id = ' . (int) $itemId);
+
+        $db->setQuery($query);
+
+        return (bool) $db->loadResult();
+    }
+
+    /**
      * Toggle subscription for a user + content item.
      *
      * @param int    $userId
@@ -29,16 +52,7 @@ class SubscriptionModel extends BaseDatabaseModel
     {
         $db = Factory::getDbo();
 
-        // Prüfen, ob der Eintrag existiert
-        $query = $db->getQuery(true)
-            ->select('COUNT(*)')
-            ->from('#__r3dcomments_subscriptions')
-            ->where('user_id = ' . (int) $userId)
-            ->where('context = ' . $db->quote($context))
-            ->where('item_id = ' . (int) $itemId);
-
-        $db->setQuery($query);
-        $exists = (bool) $db->loadResult();
+        $exists = $this->isSubscribed($userId, $context, $itemId);
 
         if ($exists)
         {

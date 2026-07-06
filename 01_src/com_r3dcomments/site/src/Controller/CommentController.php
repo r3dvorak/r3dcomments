@@ -571,6 +571,12 @@ class CommentController extends FormController
         $app  = Factory::getApplication();
         $user = $app->getIdentity();
 
+        if ($app->getInput()->getMethod() === 'POST' && !Session::checkToken('post')) {
+            $app->enqueueMessage(Text::_('JINVALID_TOKEN'), 'error');
+            $this->setRedirect(Route::_('index.php', false));
+            return;
+        }
+
         if ($user->guest) {
             $app->enqueueMessage(Text::_('COM_R3DCOMMENTS_SUBSCRIPTION_LOGIN_REQUIRED'), 'error');
             $this->setRedirect(

@@ -46,6 +46,8 @@ $translateFallback = static function (string $key, string $de, string $en) use (
 
 $items = [];
 $form = null;
+$subscriptionModel = null;
+$isSubscribed = false;
 
 try {
     /** @var \Joomla\Component\R3dcomments\Site\Extension\R3dcommentsComponent $component */
@@ -61,6 +63,12 @@ try {
     /** @var \Joomla\Component\R3dcomments\Site\Model\CommentModel $commentModel */
     $commentModel = $mvcFactory->createModel('Comment', 'Site', ['ignore_request' => true]);
     $form = $commentModel->getForm();
+
+    /** @var \Joomla\Component\R3dcomments\Site\Model\SubscriptionModel $subscriptionModel */
+    $subscriptionModel = $mvcFactory->createModel('Subscription', 'Site', ['ignore_request' => true]);
+    if (!$user->guest) {
+        $isSubscribed = $subscriptionModel->isSubscribed((int) $user->id, $context, $itemId);
+    }
 } catch (\Throwable $e) {
     if ($app->isClient('administrator')) {
         $app->enqueueMessage('R3D Comments component template error: ' . $e->getMessage(), 'error');
@@ -135,6 +143,21 @@ $renderCommentBody = static function (?string $comment): string {
 ?>
 <div class="r3dcomments-wrapper r3dcomments-wrapper-uikit uk-margin-large-top">
     <h3><?php echo Text::_('COM_R3DCOMMENTS_COMMENTS_HEADING'); ?></h3>
+
+    <?php if (!$user->guest && $subscriptionModel) : ?>
+        <form action="<?php echo Route::_('index.php?option=com_r3dcomments&task=comment.toggleSubscription'); ?>"
+              method="post"
+              class="r3dcomment-subscription-form uk-margin-small-bottom">
+            <input type="hidden" name="context" value="<?php echo htmlspecialchars($context, ENT_QUOTES, 'UTF-8'); ?>">
+            <input type="hidden" name="item_id" value="<?php echo (int) $itemId; ?>">
+            <button type="submit" class="uk-button uk-button-default uk-button-small r3d-subscription-btn">
+                <?php echo $isSubscribed
+                    ? Text::_('COM_R3DCOMMENTS_SUBSCRIPTION_THREAD_UNSUBSCRIBE')
+                    : Text::_('COM_R3DCOMMENTS_SUBSCRIPTION_THREAD_SUBSCRIBE'); ?>
+            </button>
+            <?php echo HTMLHelper::_('form.token'); ?>
+        </form>
+    <?php endif; ?>
 
     <?php if (!empty($items)) : ?>
         <?php foreach ($items as $root) : ?>

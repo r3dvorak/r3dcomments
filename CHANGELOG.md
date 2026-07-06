@@ -2,6 +2,11 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.21 (2026-07-07)
+- Restored a frontend subscription toggle for logged-in users only.
+- Added an `isSubscribed` lookup so the button label reflects the current thread state.
+- Kept the existing guest flow unchanged and preserved moderation and comment rendering behavior.
+
 ## 6.1.20 (2026-07-07)
 - Rendered stored BBCode quote tags as HTML blockquotes in the frontend comment list.
 - Kept reply and quote formatting separated instead of showing the raw `[quote]...[/quote]` text.
