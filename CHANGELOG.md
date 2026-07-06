@@ -2,6 +2,11 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.19 (2026-07-07)
+- Fixed moderation publish/trash links to redirect back to the comment context instead of the generic homepage route.
+- Added an internal return URL to the moderation emails so publish/trash actions preserve the originating page.
+- Kept the release metadata aligned for the new package build.
+
 ## 6.1.18 (2026-07-07)
 - Fixed frontend guest captcha validation to accept the Joomla 6.1 proof-of-work response payload as well as the legacy captcha field name.
 - Kept the release metadata aligned for the next package build.

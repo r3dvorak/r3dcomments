@@ -186,8 +186,9 @@ class CommentController extends FormController
 
                 // Moderations-Links erstellen
                 $baseUri    = Uri::root();
-                $publishUrl = $baseUri . 'index.php?option=com_r3dcomments&task=comment.moderate&id=' . $id . '&token=' . $data['moderation_token'] . '&action=publish';
-                $trashUrl   = $baseUri . 'index.php?option=com_r3dcomments&task=comment.moderate&id=' . $id . '&token=' . $data['moderation_token'] . '&action=trash';
+                $moderationReturnUrl = $this->buildContextRedirectUrl($context, $itemId);
+                $publishUrl = $baseUri . 'index.php?option=com_r3dcomments&task=comment.moderate&id=' . $id . '&token=' . $data['moderation_token'] . '&action=publish&return=' . rawurlencode($moderationReturnUrl);
+                $trashUrl   = $baseUri . 'index.php?option=com_r3dcomments&task=comment.moderate&id=' . $id . '&token=' . $data['moderation_token'] . '&action=trash&return=' . rawurlencode($moderationReturnUrl);
                 $backendUrl = $baseUri . 'administrator/index.php?option=com_r3dcomments&task=comment.edit&id=' . $id;
 
                 // Betreff und Body aus der Konfiguration holen
@@ -692,11 +693,12 @@ class CommentController extends FormController
         $id     = $input->getInt('id');
         $token  = $input->getString('token');
         $action = $input->getString('action');
+        $return = trim((string) $input->getString('return', ''));
 
         if (!$id || !$token || !$action)
         {
             $app->enqueueMessage(Text::_('COM_R3DCOMMENTS_MODERATION_INVALID_LINK'), 'error');
-            $this->setRedirect(Route::_('index.php'));
+            $this->setRedirect(Route::_('index.php', false));
             return;
         }
 
@@ -707,8 +709,15 @@ class CommentController extends FormController
         if (!$comment || empty($comment->moderation_token) || !hash_equals($comment->moderation_token, $token))
         {
             $app->enqueueMessage(Text::_('COM_R3DCOMMENTS_MODERATION_LINK_INVALID_OR_USED'), 'error');
-            $this->setRedirect(Route::_('index.php'));
+            $this->setRedirect(Route::_('index.php', false));
             return;
+        }
+
+        $redirectUrl = $this->buildContextRedirectUrl((string) $comment->context, (int) $comment->item_id);
+
+        if ($return !== '' && Uri::isInternal($return))
+        {
+            $redirectUrl = Route::_($return, false);
         }
 
         $newState = null;
@@ -732,6 +741,6 @@ class CommentController extends FormController
             $app->enqueueMessage($message, 'message');
         }
 
-        $this->setRedirect(Route::_('index.php'));
+        $this->setRedirect($redirectUrl);
     }
 }
