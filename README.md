@@ -54,6 +54,9 @@ Current release: `6.1.17`.
 Configured package feed:
 - `https://extensions.r3d.de/joomlaextensions/updates/pkg_r3dcomments.xml`
 
+Package ZIP download:
+- `https://extensions.r3d.de/phocadownload/pkg_r3dcomments-<version>.zip`
+
 ## Notes
 
 - Joomla manifests and XML references use forward slashes `/` only.
