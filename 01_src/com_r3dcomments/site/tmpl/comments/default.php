@@ -368,8 +368,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const escapedQuote = escapeHtml(quoteText);
             const escapedAuthor = escapeHtml(authorName);
             const htmlQuote = escapedAuthor !== ''
-                ? `<blockquote><p>${escapedQuote}</p><cite>— ${escapedAuthor}</cite></blockquote><p></p>`
-                : `<blockquote><p>${escapedQuote}</p></blockquote><p></p>`;
+                ? `<blockquote><p>${escapedQuote}</p><cite>— ${escapedAuthor}</cite></blockquote>`
+                : `<blockquote><p>${escapedQuote}</p></blockquote>`;
             const plainQuote = authorName !== ''
                 ? `[quote=${authorName}]\n${quoteText}\n[/quote]\n\n`
                 : `[quote]\n${quoteText}\n[/quote]\n\n`;
