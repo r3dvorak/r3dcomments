@@ -28,6 +28,8 @@ final class MarkupHelper
             $comment = htmlspecialchars($comment, ENT_QUOTES, 'UTF-8');
             $comment = self::renderBbcode($comment, true, true);
             $comment = nl2br($comment, false);
+            $comment = preg_replace('~</blockquote>\s*<br\s*/?>\s*~i', '</blockquote>', $comment);
+            $comment = preg_replace('~(<blockquote[^>]*>\s*)<br\s*/?>\s*~i', '$1', $comment);
 
             return $comment;
         }
