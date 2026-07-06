@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Component\R3dcomments\Site\Helper\MarkupHelper;
 
 class CommentsModel extends ListModel
 {
@@ -118,6 +119,12 @@ class CommentsModel extends ListModel
                     $indexed[$item->parent_id]->children[] = $item;
                 }
             }
+
+            $item->raw_comment = (string) ($item->comment ?? '');
+            $item->comment = MarkupHelper::renderCommentBody(
+                (string) $item->raw_comment,
+                (int) ($item->created_by ?? 0) === 0
+            );
         }
 
         return $tree;

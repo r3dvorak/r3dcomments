@@ -2,6 +2,11 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.23 (2026-07-07)
+- Moved guest markup rendering into the frontend data model so template overrides also receive rendered comment HTML.
+- Preserved raw comment text separately for reply/quote button payloads and admin preview extraction.
+- Kept the release metadata aligned for the new package build.
+
 ## 6.1.22 (2026-07-07)
 - Added a shared markup renderer for comment output.
 - Rendered guest BBCode quotes, bold, italic, underline, and line breaks in a safe frontend mode.

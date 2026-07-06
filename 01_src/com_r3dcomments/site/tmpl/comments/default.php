@@ -145,13 +145,13 @@ $formatDisplayDate = static function (?string $rawDate) use ($app): string {
                     <?php endif; ?>
                 </div>
 
-                <div class="r3dcomment-body uk-margin-small-top"><?php echo MarkupHelper::renderCommentBody((string) $root->comment, (int) $root->created_by === 0); ?></div>
+                <div class="r3dcomment-body uk-margin-small-top"><?php echo $root->comment; ?></div>
 
                 <div class="r3dcomment-actions uk-margin-small-top">
                     <button type="button" class="r3d-reply-btn"
                             data-parent="<?php echo (int) $root->id; ?>"
                             data-quote-id="<?php echo (int) $root->id; ?>"
-                            data-quote="<?php echo htmlspecialchars(strip_tags((string) $root->comment), ENT_QUOTES, 'UTF-8'); ?>">
+                            data-quote="<?php echo htmlspecialchars(MarkupHelper::renderPreviewText((string) ($root->raw_comment ?? $root->comment)), ENT_QUOTES, 'UTF-8'); ?>">
                         ↳ <?php echo htmlspecialchars($translateFallback('COM_R3DCOMMENTS_REPLY', 'Antworten', 'Reply'), ENT_QUOTES, 'UTF-8'); ?>
                     </button>
                     <button type="button" class="r3d-reply-btn r3d-quote-btn"
@@ -174,13 +174,13 @@ $formatDisplayDate = static function (?string $rawDate) use ($app): string {
                                     <?php endif; ?>
                                 </div>
 
-                                <div class="r3dcomment-body uk-margin-small-top"><?php echo MarkupHelper::renderCommentBody((string) $child->comment, (int) $child->created_by === 0); ?></div>
+                                <div class="r3dcomment-body uk-margin-small-top"><?php echo $child->comment; ?></div>
 
                                 <div class="r3dcomment-actions uk-margin-small-top">
                                     <button type="button" class="r3d-reply-btn"
                                             data-parent="<?php echo (int) $root->id; ?>"
                                             data-quote-id="<?php echo (int) $child->id; ?>"
-                                            data-quote="<?php echo htmlspecialchars(strip_tags((string) $child->comment), ENT_QUOTES, 'UTF-8'); ?>">
+                                            data-quote="<?php echo htmlspecialchars(MarkupHelper::renderPreviewText((string) ($child->raw_comment ?? $child->comment)), ENT_QUOTES, 'UTF-8'); ?>">
                                         ↳ <?php echo htmlspecialchars($translateFallback('COM_R3DCOMMENTS_REPLY', 'Antworten', 'Reply'), ENT_QUOTES, 'UTF-8'); ?>
                                     </button>
                                     <button type="button" class="r3d-reply-btn r3d-quote-btn"
