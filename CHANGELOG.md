@@ -2,6 +2,10 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.25 (2026-07-07)
+- Fixed the guest long-window rate-limit exception to pass both sprintf arguments expected by the translation string.
+- Removed the fatal `3 arguments are required, 2 given` crash from the guest save flow.
+
 ## 6.1.24 (2026-07-07)
 - Tightened quote block spacing and typography so rendered quotes are visually smaller and less dominant.
 - Kept the markup rendering behavior unchanged.

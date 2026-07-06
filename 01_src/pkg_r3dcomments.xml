@@ -2,7 +2,7 @@
 <extension type="package" method="upgrade">
     <name>pkg_r3dcomments</name>
     <packagename>r3dcomments</packagename>
-    <version>6.1.24</version>
+    <version>6.1.25</version>
     <creationDate>2026-05-08</creationDate>
     <author>Richard Dvorak</author>
     <authorEmail>dev@r3d.de</authorEmail>

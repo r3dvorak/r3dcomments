@@ -325,7 +325,8 @@ class CommentController extends FormController
         {
             throw new RuntimeException(Text::sprintf(
                 'COM_R3DCOMMENTS_ERROR_GUEST_RATE_LIMIT_DAY',
-                $maxSubmissions
+                $maxSubmissions,
+                $windowSeconds
             ), 429);
         }
     }
