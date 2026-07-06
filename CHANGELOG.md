@@ -5,6 +5,7 @@ All notable changes to this package are documented in this file.
 ## 6.1.17 (2026-07-06)
 - Fixed frontend guest captcha validation to read the raw posted captcha response instead of the JForm-filtered payload.
 - Fixed moderation email publish/trash links to use the administrator table API instead of a missing site model method.
+- Fixed the package update feed URL to use the live `joomlaextensions/updates` path instead of the dead `/extensions/r3dcomments/` path.
 - Kept package metadata aligned for the next release build.
 
 ## 6.1.16 (2026-07-06)

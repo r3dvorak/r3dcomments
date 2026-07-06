@@ -5,7 +5,7 @@
     "artifactBaseName": "pkg_r3dcomments",
     "vendor": "r3d",
     "description": "Joomla extension suite for R3D Comments (component + module).",
-    "updateServerUrl": "https://extensions.r3d.de/extensions/r3dcomments/pkg_r3dcomments.xml",
+    "updateServerUrl": "https://extensions.r3d.de/joomlaextensions/updates/pkg_r3dcomments.xml",
     "changelogUrl": "https://github.com/r3dvorak/r3dcomments/blob/main/CHANGELOG.md",
     "defaults": {
       "version": "6.1.17",
@@ -35,6 +35,5 @@
     "versioning": "semver"
   }
 }
-
 
 
