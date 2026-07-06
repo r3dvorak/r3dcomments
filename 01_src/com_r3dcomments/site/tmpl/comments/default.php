@@ -104,6 +104,34 @@ $formatDisplayDate = static function (?string $rawDate) use ($app): string {
         return (string) $rawDate;
     }
 };
+
+$renderCommentBody = static function (?string $comment): string {
+    $comment = (string) $comment;
+
+    if ($comment === '') {
+        return '';
+    }
+
+    $parser = static function (string $text) use (&$parser): string {
+        return preg_replace_callback(
+            '~\[quote(?:=([^\]\r\n]+))?\](.*?)\[/quote\]~is',
+            static function (array $matches) use (&$parser): string {
+                $author = trim((string) ($matches[1] ?? ''));
+                $body   = trim((string) ($matches[2] ?? ''));
+                $body   = $parser($body);
+
+                $cite = $author !== ''
+                    ? '<cite>— ' . htmlspecialchars($author, ENT_QUOTES, 'UTF-8') . '</cite>'
+                    : '';
+
+                return '<blockquote><p>' . $body . '</p>' . $cite . '</blockquote><p></p>';
+            },
+            $text
+        );
+    };
+
+    return $parser($comment);
+};
 ?>
 <div class="r3dcomments-wrapper r3dcomments-wrapper-uikit uk-margin-large-top">
     <h3><?php echo Text::_('COM_R3DCOMMENTS_COMMENTS_HEADING'); ?></h3>
@@ -120,7 +148,7 @@ $formatDisplayDate = static function (?string $rawDate) use ($app): string {
                     <?php endif; ?>
                 </div>
 
-                <div class="r3dcomment-body uk-margin-small-top"><?php echo $root->comment; ?></div>
+                <div class="r3dcomment-body uk-margin-small-top"><?php echo $renderCommentBody((string) $root->comment); ?></div>
 
                 <div class="r3dcomment-actions uk-margin-small-top">
                     <button type="button" class="r3d-reply-btn"
@@ -149,7 +177,7 @@ $formatDisplayDate = static function (?string $rawDate) use ($app): string {
                                     <?php endif; ?>
                                 </div>
 
-                                <div class="r3dcomment-body uk-margin-small-top"><?php echo $child->comment; ?></div>
+                                <div class="r3dcomment-body uk-margin-small-top"><?php echo $renderCommentBody((string) $child->comment); ?></div>
 
                                 <div class="r3dcomment-actions uk-margin-small-top">
                                     <button type="button" class="r3d-reply-btn"

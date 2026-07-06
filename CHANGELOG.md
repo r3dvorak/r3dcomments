@@ -2,6 +2,11 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.20 (2026-07-07)
+- Rendered stored BBCode quote tags as HTML blockquotes in the frontend comment list.
+- Kept reply and quote formatting separated instead of showing the raw `[quote]...[/quote]` text.
+- Kept the release metadata aligned for the new package build.
+
 ## 6.1.19 (2026-07-07)
 - Fixed moderation publish/trash links to redirect back to the comment context instead of the generic homepage route.
 - Added an internal return URL to the moderation emails so publish/trash actions preserve the originating page.
