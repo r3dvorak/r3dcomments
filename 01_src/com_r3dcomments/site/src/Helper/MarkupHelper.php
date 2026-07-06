@@ -82,7 +82,7 @@ final class MarkupHelper
                     ? '<cite>— ' . htmlspecialchars($author, ENT_QUOTES, 'UTF-8') . '</cite>'
                     : '';
 
-                return '<blockquote><p>' . $body . '</p>' . $cite . '</blockquote><p></p>';
+                return '<blockquote><p>' . $body . '</p>' . $cite . '</blockquote>';
             },
             $comment
         );

@@ -2,6 +2,10 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.26 (2026-07-07)
+- Removed the extra blank block after rendered quotes to reduce vertical spacing before the reply text.
+- Tightened quote block spacing further, including nested quote blocks.
+
 ## 6.1.25 (2026-07-07)
 - Fixed the guest long-window rate-limit exception to pass both sprintf arguments expected by the translation string.
 - Removed the fatal `3 arguments are required, 2 given` crash from the guest save flow.
