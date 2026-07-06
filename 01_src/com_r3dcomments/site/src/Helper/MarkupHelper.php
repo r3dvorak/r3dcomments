@@ -16,6 +16,10 @@ defined('_JEXEC') or die;
  */
 final class MarkupHelper
 {
+    private const QUOTE_BLOCK_STYLE = 'margin:0 0 0.02rem;padding:0.06rem 0 0.06rem 0.5rem;border-left:1px solid rgba(0,0,0,0.2);background:transparent;font-size:16px;line-height:28px;font-style:italic;font-weight:400;';
+    private const QUOTE_BODY_STYLE = 'margin:0;font-size:inherit;line-height:inherit;font-style:inherit;font-weight:inherit;';
+    private const QUOTE_CITE_STYLE = 'display:block;margin-top:0.05rem;margin-left:0.25rem;font-style:italic;font-weight:400;opacity:0.8;font-size:inherit;line-height:inherit;';
+
     public static function renderCommentBody(string $comment, bool $guestMode = false): string
     {
         $comment = self::normalizeLineEndings($comment);
@@ -85,10 +89,10 @@ final class MarkupHelper
                 );
 
                 $cite = $author !== ''
-                    ? '<cite>— ' . htmlspecialchars($author, ENT_QUOTES, 'UTF-8') . '</cite>'
+                    ? '<cite style="' . self::QUOTE_CITE_STYLE . '">— ' . htmlspecialchars($author, ENT_QUOTES, 'UTF-8') . '</cite>'
                     : '';
 
-                return '<blockquote><p>' . $body . '</p>' . $cite . '</blockquote>';
+                return '<blockquote style="' . self::QUOTE_BLOCK_STYLE . '"><p style="' . self::QUOTE_BODY_STYLE . '">' . $body . '</p>' . $cite . '</blockquote>';
             },
             $comment
         );

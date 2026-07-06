@@ -256,26 +256,37 @@ static $r3dcommentsInlineStylesPrinted = false;
 
             .r3dcomments-wrapper-uikit .r3dcomment-body blockquote,
             .r3dcomments-wrapper-standard .r3dcomment-body blockquote {
-                margin: 0.75rem 0;
-                padding: 0.75rem 1rem;
-                border-left: 4px solid #0d6efd;
-                border-radius: 0.35rem;
-                background: rgba(13, 110, 253, 0.08);
+                margin: 0 0 0.02rem;
+                padding: 0.06rem 0 0.06rem 0.5rem;
+                border-left: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 0;
+                background: transparent;
                 color: #1f2d3d;
+                font-size: 16px;
+                line-height: 28px;
+                font-style: italic;
+                font-weight: 400;
             }
 
             .r3dcomments-wrapper-uikit .r3dcomment-body blockquote p,
             .r3dcomments-wrapper-standard .r3dcomment-body blockquote p {
                 margin: 0;
+                font-size: inherit;
+                line-height: inherit;
+                font-style: inherit;
+                font-weight: inherit;
             }
 
             .r3dcomments-wrapper-uikit .r3dcomment-body blockquote cite,
             .r3dcomments-wrapper-standard .r3dcomment-body blockquote cite {
                 display: block;
-                margin-top: 0.5rem;
-                font-style: normal;
-                font-size: 0.9rem;
-                opacity: 0.85;
+                margin-top: 0.05rem;
+                margin-left: 0.25rem;
+                font-style: italic;
+                font-weight: 400;
+                font-size: inherit;
+                line-height: inherit;
+                opacity: 0.8;
             }
 
             .r3dcomments-wrapper-standard #r3dcomment-form button {
@@ -331,22 +342,33 @@ static $r3dcommentsInlineStylesPrinted = false;
                 box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
             }
             #r3d-preview-content blockquote {
-                margin: 0.75rem 0;
-                padding: 0.75rem 1rem;
-                border-left: 4px solid #0d6efd;
-                border-radius: 0.35rem;
-                background: rgba(13, 110, 253, 0.08);
+                margin: 0 0 0.02rem;
+                padding: 0.06rem 0 0.06rem 0.5rem;
+                border-left: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 0;
+                background: transparent;
                 color: #1f2d3d;
+                font-size: 16px;
+                line-height: 28px;
+                font-style: italic;
+                font-weight: 400;
             }
             #r3d-preview-content blockquote p {
                 margin: 0;
+                font-size: inherit;
+                line-height: inherit;
+                font-style: inherit;
+                font-weight: inherit;
             }
             #r3d-preview-content blockquote cite {
                 display: block;
-                margin-top: 0.5rem;
-                font-style: normal;
-                font-size: 0.9rem;
-                opacity: 0.85;
+                margin-top: 0.05rem;
+                margin-left: 0.25rem;
+                font-style: italic;
+                font-weight: 400;
+                font-size: inherit;
+                line-height: inherit;
+                opacity: 0.8;
             }
             .r3d-preview-close-btn {
                 border: 1px solid #6c757d;
@@ -818,6 +840,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             const p = document.createElement('p');
+            if (target && target.tagName === 'BLOCKQUOTE') {
+                p.style.margin = '0';
+                p.style.fontSize = 'inherit';
+                p.style.lineHeight = 'inherit';
+                p.style.fontStyle = 'inherit';
+                p.style.fontWeight = 'inherit';
+            }
             p.innerHTML = escapeHtml(clean).replace(/\n/g, '<br>');
             target.appendChild(p);
         };
@@ -835,8 +864,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (block.author !== '') {
                         const cite = document.createElement('cite');
                         cite.textContent = '- ' + block.author;
+                        cite.style.marginTop = '0.05rem';
+                        cite.style.marginLeft = '0.25rem';
+                        cite.style.fontStyle = 'italic';
+                        cite.style.fontWeight = '400';
+                        cite.style.fontSize = 'inherit';
+                        cite.style.lineHeight = 'inherit';
+                        cite.style.opacity = '0.8';
                         quoteEl.appendChild(cite);
                     }
+                    quoteEl.style.margin = '0 0 0.02rem';
+                    quoteEl.style.padding = '0.06rem 0 0.06rem 0.5rem';
+                    quoteEl.style.borderLeft = '1px solid rgba(0, 0, 0, 0.2)';
+                    quoteEl.style.borderRadius = '0';
+                    quoteEl.style.background = 'transparent';
+                    quoteEl.style.color = '#1f2d3d';
+                    quoteEl.style.fontSize = '16px';
+                    quoteEl.style.lineHeight = '28px';
+                    quoteEl.style.fontStyle = 'italic';
+                    quoteEl.style.fontWeight = '400';
                     target.appendChild(quoteEl);
                 }
                 last = m.index + m[0].length;
@@ -909,8 +955,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const escapedQuote = escapeHtml(quoteText);
             const escapedAuthor = escapeHtml(authorName);
             const htmlQuote = escapedAuthor !== ''
-                ? `<blockquote><p>${escapedQuote}</p><cite>- ${escapedAuthor}</cite></blockquote><p></p>`
-                : `<blockquote><p>${escapedQuote}</p></blockquote><p></p>`;
+                ? `<blockquote style="margin:0 0 0.02rem;padding:0.06rem 0 0.06rem 0.5rem;border-left:1px solid rgba(0,0,0,0.2);background:transparent;color:#1f2d3d;font-size:16px;line-height:28px;font-style:italic;font-weight:400;"><p style="margin:0;font-size:inherit;line-height:inherit;font-style:inherit;font-weight:inherit;">${escapedQuote}</p><cite style="display:block;margin-top:0.05rem;margin-left:0.25rem;font-style:italic;font-weight:400;opacity:0.8;font-size:inherit;line-height:inherit;">- ${escapedAuthor}</cite></blockquote>`
+                : `<blockquote style="margin:0 0 0.02rem;padding:0.06rem 0 0.06rem 0.5rem;border-left:1px solid rgba(0,0,0,0.2);background:transparent;color:#1f2d3d;font-size:16px;line-height:28px;font-style:italic;font-weight:400;"><p style="margin:0;font-size:inherit;line-height:inherit;font-style:inherit;font-weight:inherit;">${escapedQuote}</p></blockquote>`;
             const plainQuote = authorName !== ''
                 ? `[quote=${authorName}]\n${quoteText}\n[/quote]\n\n`
                 : `[quote]\n${quoteText}\n[/quote]\n\n`;

@@ -368,8 +368,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const escapedQuote = escapeHtml(quoteText);
             const escapedAuthor = escapeHtml(authorName);
             const htmlQuote = escapedAuthor !== ''
-                ? `<blockquote><p>${escapedQuote}</p><cite>— ${escapedAuthor}</cite></blockquote>`
-                : `<blockquote><p>${escapedQuote}</p></blockquote>`;
+                ? `<blockquote style="margin:0 0 0.02rem;padding:0.06rem 0 0.06rem 0.5rem;border-left:1px solid rgba(0,0,0,0.2);background:transparent;font-size:16px;line-height:28px;font-style:italic;font-weight:400;"><p style="margin:0;font-size:inherit;line-height:inherit;font-style:inherit;font-weight:inherit;">${escapedQuote}</p><cite style="display:block;margin-top:0.05rem;margin-left:0.25rem;font-style:italic;font-weight:400;opacity:0.8;font-size:inherit;line-height:inherit;">— ${escapedAuthor}</cite></blockquote>`
+                : `<blockquote style="margin:0 0 0.02rem;padding:0.06rem 0 0.06rem 0.5rem;border-left:1px solid rgba(0,0,0,0.2);background:transparent;font-size:16px;line-height:28px;font-style:italic;font-weight:400;"><p style="margin:0;font-size:inherit;line-height:inherit;font-style:inherit;font-weight:inherit;">${escapedQuote}</p></blockquote>`;
             const plainQuote = authorName !== ''
                 ? `[quote=${authorName}]\n${quoteText}\n[/quote]\n\n`
                 : `[quote]\n${quoteText}\n[/quote]\n\n`;
