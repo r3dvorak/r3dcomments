@@ -2,6 +2,10 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.24 (2026-07-07)
+- Tightened quote block spacing and typography so rendered quotes are visually smaller and less dominant.
+- Kept the markup rendering behavior unchanged.
+
 ## 6.1.23 (2026-07-07)
 - Moved guest markup rendering into the frontend data model so template overrides also receive rendered comment HTML.
 - Preserved raw comment text separately for reply/quote button payloads and admin preview extraction.
