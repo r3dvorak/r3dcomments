@@ -2,6 +2,10 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.28 (2026-07-07)
+- Tightened quote typography so rendered quotes stay close to the author-name size.
+- Switched quote text to italic only and reduced the space below quote blocks.
+
 ## 6.1.27 (2026-07-07)
 - Trimmed quote body whitespace before rendering to reduce leading/trailing line-break artifacts.
 - Collapsed repeated line breaks around rendered quote blocks.

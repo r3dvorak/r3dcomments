@@ -78,12 +78,14 @@
 }
 
 .r3dcomments-wrapper .r3dcomment-body blockquote {
-    margin: 0 0 0.2rem;
-    padding: 0.2rem 0 0.2rem 0.55rem;
+    margin: 0 0 0.05rem;
+    padding: 0.12rem 0 0.12rem 0.55rem;
     border-left: 1px solid rgba(0, 0, 0, 0.2);
     background: transparent;
-    font-size: 0.84rem;
+    font-size: 0.875rem;
     line-height: 1.2;
+    font-style: italic;
+    font-weight: normal;
 }
 
 .r3dcomments-wrapper .r3dcomment-body blockquote p {
@@ -95,18 +97,19 @@
 }
 
 .r3dcomments-wrapper .r3dcomment-body blockquote cite {
-    display: inline;
-    margin-top: 0;
+    display: block;
+    margin-top: 0.15rem;
     margin-left: 0.3rem;
-    font-style: normal;
-    opacity: 0.75;
-    font-size: 0.8rem;
+    font-style: italic;
+    font-weight: normal;
+    opacity: 0.8;
+    font-size: inherit;
 }
 
 .r3dcomments-wrapper .r3dcomment-body blockquote blockquote {
-    margin: 0.2rem 0 0.1rem;
+    margin: 0.12rem 0 0.04rem;
     padding-left: 0.45rem;
-    font-size: 0.8rem;
+    font-size: 0.875rem;
 }
 
 .r3dcomments-wrapper-standard #r3dcomment-form button {
