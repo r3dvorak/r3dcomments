@@ -16,6 +16,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Component\R3dcomments\Site\Helper\MarkupHelper;
 
 /** @var array<string,mixed> $displayData */
 $context = (string) ($displayData['context'] ?? '');
@@ -113,33 +114,6 @@ $formatDisplayDate = static function (?string $rawDate) use ($app): string {
     }
 };
 
-$renderCommentBody = static function (?string $comment): string {
-    $comment = (string) $comment;
-
-    if ($comment === '') {
-        return '';
-    }
-
-    $parser = static function (string $text) use (&$parser): string {
-        return preg_replace_callback(
-            '~\[quote(?:=([^\]\r\n]+))?\](.*?)\[/quote\]~is',
-            static function (array $matches) use (&$parser): string {
-                $author = trim((string) ($matches[1] ?? ''));
-                $body   = trim((string) ($matches[2] ?? ''));
-                $body   = $parser($body);
-
-                $cite = $author !== ''
-                    ? '<cite>— ' . htmlspecialchars($author, ENT_QUOTES, 'UTF-8') . '</cite>'
-                    : '';
-
-                return '<blockquote><p>' . $body . '</p>' . $cite . '</blockquote><p></p>';
-            },
-            $text
-        );
-    };
-
-    return $parser($comment);
-};
 ?>
 <div class="r3dcomments-wrapper r3dcomments-wrapper-uikit uk-margin-large-top">
     <h3><?php echo Text::_('COM_R3DCOMMENTS_COMMENTS_HEADING'); ?></h3>
@@ -171,7 +145,7 @@ $renderCommentBody = static function (?string $comment): string {
                     <?php endif; ?>
                 </div>
 
-                <div class="r3dcomment-body uk-margin-small-top"><?php echo $renderCommentBody((string) $root->comment); ?></div>
+                <div class="r3dcomment-body uk-margin-small-top"><?php echo MarkupHelper::renderCommentBody((string) $root->comment, (int) $root->created_by === 0); ?></div>
 
                 <div class="r3dcomment-actions uk-margin-small-top">
                     <button type="button" class="r3d-reply-btn"
@@ -200,7 +174,7 @@ $renderCommentBody = static function (?string $comment): string {
                                     <?php endif; ?>
                                 </div>
 
-                                <div class="r3dcomment-body uk-margin-small-top"><?php echo $renderCommentBody((string) $child->comment); ?></div>
+                                <div class="r3dcomment-body uk-margin-small-top"><?php echo MarkupHelper::renderCommentBody((string) $child->comment, (int) $child->created_by === 0); ?></div>
 
                                 <div class="r3dcomment-actions uk-margin-small-top">
                                     <button type="button" class="r3d-reply-btn"

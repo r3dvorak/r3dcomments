@@ -2,6 +2,11 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.22 (2026-07-07)
+- Added a shared markup renderer for comment output.
+- Rendered guest BBCode quotes, bold, italic, underline, and line breaks in a safe frontend mode.
+- Cleaned up the admin list preview so stored quote markup is shown as readable text instead of raw tags.
+
 ## 6.1.21 (2026-07-07)
 - Restored a frontend subscription toggle for logged-in users only.
 - Added an `isSubscribed` lookup so the button label reflects the current thread state.

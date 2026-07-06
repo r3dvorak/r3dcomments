@@ -77,6 +77,24 @@
     background: rgba(13, 110, 253, 0.08);
 }
 
+.r3dcomments-wrapper .r3dcomment-body blockquote {
+    margin: 0 0 0.75rem;
+    padding: 0.75rem 1rem;
+    border-left: 3px solid rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.r3dcomments-wrapper .r3dcomment-body blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+.r3dcomments-wrapper .r3dcomment-body blockquote cite {
+    display: block;
+    margin-top: 0.5rem;
+    font-style: normal;
+    opacity: 0.75;
+}
+
 .r3dcomments-wrapper-standard #r3dcomment-form button {
     margin-top: 0.5rem;
 }

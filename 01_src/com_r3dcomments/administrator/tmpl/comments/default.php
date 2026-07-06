@@ -13,6 +13,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\Component\R3dcomments\Site\Helper\MarkupHelper;
 
 $listOrder = $this->listOrder;
 $listDirn  = $this->listDirn;
@@ -133,7 +134,7 @@ if ($saveOrder && !empty($this->items))
                 <td>
                     <a href="<?php echo Route::_('index.php?option=com_r3dcomments&task=comment.edit&id=' . $item->id); ?>">
                         <?php
-                        $plain = strip_tags($item->comment);
+                        $plain = MarkupHelper::renderPreviewText((string) $item->comment);
                         echo htmlspecialchars(mb_strimwidth($plain, 0, 200, '…'));
                         ?>
                     </a>
