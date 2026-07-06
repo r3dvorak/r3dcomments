@@ -2,6 +2,11 @@
 
 All notable changes to this package are documented in this file.
 
+## 6.1.27 (2026-07-07)
+- Trimmed quote body whitespace before rendering to reduce leading/trailing line-break artifacts.
+- Collapsed repeated line breaks around rendered quote blocks.
+- Tightened quote CSS further to make quotes smaller and less spaced out.
+
 ## 6.1.26 (2026-07-07)
 - Removed the extra blank block after rendered quotes to reduce vertical spacing before the reply text.
 - Tightened quote block spacing further, including nested quote blocks.

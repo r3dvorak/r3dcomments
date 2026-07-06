@@ -76,7 +76,11 @@ final class MarkupHelper
             '~\[quote(?:=([^\]\r\n]+))?\](.*?)\[/quote\]~is',
             static function (array $matches) use ($guestMode, $alreadyEscaped): string {
                 $author = trim((string) ($matches[1] ?? ''));
-                $body   = self::renderBbcode(self::normalizeLineEndings((string) ($matches[2] ?? '')), $guestMode, $alreadyEscaped);
+                $body   = self::renderBbcode(
+                    self::normalizeLineEndings(trim((string) ($matches[2] ?? ''))),
+                    $guestMode,
+                    $alreadyEscaped
+                );
 
                 $cite = $author !== ''
                     ? '<cite>— ' . htmlspecialchars($author, ENT_QUOTES, 'UTF-8') . '</cite>'
@@ -86,6 +90,10 @@ final class MarkupHelper
             },
             $comment
         );
+
+        $comment = preg_replace('~(?:<br\s*/?>\s*){2,}~i', '<br>', $comment);
+        $comment = preg_replace('~(<blockquote[^>]*>\s*)(?:<br\s*/?>\s*)+~i', '$1', $comment);
+        $comment = preg_replace('~(?:<br\s*/?>\s*)+(</blockquote>)~i', '$1', $comment);
 
         return $comment;
     }
