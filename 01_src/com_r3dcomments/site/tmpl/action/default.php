@@ -4,7 +4,7 @@
  * @version     6.1.15
  * @copyright   Copyright (C) 2025. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
- * @author      Richard Dvorak, <dev@r3d.de> - https://www.r3d.de
+ * @author      Richard Dvorak, <dev@r3d.de> - https://extensions.r3d.de
  */
 
 defined('_JEXEC') or die;

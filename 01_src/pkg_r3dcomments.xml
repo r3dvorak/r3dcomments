@@ -6,7 +6,7 @@
     <creationDate>2026-05-08</creationDate>
     <author>Richard Dvorak</author>
     <authorEmail>dev@r3d.de</authorEmail>
-    <authorUrl>https://www.r3d.de</authorUrl>
+    <authorUrl>https://extensions.r3d.de</authorUrl>
     <copyright>Copyright (C) 2026 Richard Dvorak</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <description>R3D Comments package for Joomla 6.</description>
@@ -23,7 +23,6 @@
 
     <scriptfile>script.pkg_r3dcomments.php</scriptfile>
 </extension>
-
 
 
 

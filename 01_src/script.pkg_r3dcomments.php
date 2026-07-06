@@ -3,7 +3,7 @@
  * @package     pkg_r3dcomments
  * @version     6.1.15
  * @date        2026-05-08
- * @author      Richard Dvorak, <dev@r3d.de> - https://www.r3d.de
+ * @author      Richard Dvorak, <dev@r3d.de> - https://extensions.r3d.de
  * @license     https://www.gnu.org/licenses/agpl-3.0.txt GNU Affero General Public License, version 3 or later
  */
 
@@ -48,7 +48,6 @@ class R3dcommentsInstallerScript extends InstallerScript
         return true;
     }
 }
-
 
 
 

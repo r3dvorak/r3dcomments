@@ -5,7 +5,7 @@
     <version>6.1.15</version>
     <author>Richard Dvorak</author>
     <authorEmail>dev@r3d.de</authorEmail>
-    <authorUrl>https://www.r3d.de</authorUrl>
+    <authorUrl>https://extensions.r3d.de</authorUrl>
     <license>GNU GPL v2 or later</license>
     <description>R3D Comments frontend integration module for Joomla 6.</description>
 
@@ -62,7 +62,6 @@
         </fields>
     </config>
 </extension>
-
 
 
 
