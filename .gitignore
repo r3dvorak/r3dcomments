@@ -20,6 +20,7 @@ scripts/
 # Local secrets / environment
 .env
 .ENV
+.env.publish
 .env.local
 .ENV.local
 .env.*.local
