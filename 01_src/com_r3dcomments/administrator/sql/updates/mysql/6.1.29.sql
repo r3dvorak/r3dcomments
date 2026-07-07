@@ -1,0 +1,2 @@
+-- Joomla schema version bump for 6.1.29.
+-- The actual ip_hash fallback is handled in script.pkg_r3dcomments.php for upgrades that missed 5.3.16.sql.
