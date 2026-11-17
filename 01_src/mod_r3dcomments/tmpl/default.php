@@ -120,6 +120,12 @@ static $r3dcommentsInlineStylesPrinted = false;
 <div class="r3dcomments-wrapper r3dcomments-wrapper-uikit uk-margin-large-top">
     <?php if (!$r3dcommentsInlineStylesPrinted) : ?>
         <style>
+            .r3dcomments-wrapper #r3dcomment-form textarea#jform_comment {
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
             .r3dcomments-wrapper-uikit .r3dcomment-form-wrap,
             .r3dcomments-wrapper-standard .r3dcomment-form-wrap {
                 margin-top: 2.5rem;
