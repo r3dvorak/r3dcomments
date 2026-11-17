@@ -42,6 +42,7 @@
         <language tag="en-GB">language/en-GB/com_r3dcomments.ini</language>
 		<language tag="de-DE">language/de-DE/com_r3dcomments.ini</language>
 		<language tag="el-GR">language/el-GR/com_r3dcomments.ini</language>
+        <language tag="it-IT">language/it-IT/com_r3dcomments.ini</language>
     </languages>
 
     <media destination="com_r3dcomments">
@@ -72,6 +73,8 @@
 			<language tag="de-DE">language/de-DE/com_r3dcomments.sys.ini</language>
 			<language tag="el-GR">language/el-GR/com_r3dcomments.ini</language>
 			<language tag="el-GR">language/el-GR/com_r3dcomments.sys.ini</language>
+            <language tag="it-IT">language/it-IT/com_r3dcomments.ini</language>
+            <language tag="it-IT">language/it-IT/com_r3dcomments.sys.ini</language>
         </languages>
     </administration>
 

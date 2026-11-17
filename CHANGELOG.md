@@ -4,6 +4,7 @@ All notable changes to this package are documented in this file.
 
 ## 6.1.30 (2026-11-17)
 - Ensured the frontend comment textarea fills the available form width in both UIkit and Standard / Neutral module render modes.
+- Added Italian translations for the component administrator/site language files and the comments module.
 
 ## 6.1.29 (2026-07-07)
 - Fixed the database update migration for `ip_hash` so Joomla no longer parses `IF NOT EXISTS` as a schema column.

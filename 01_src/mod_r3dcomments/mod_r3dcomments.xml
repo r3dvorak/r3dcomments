@@ -23,6 +23,8 @@
         <language tag="de-DE">de-DE/de-DE.mod_r3dcomments.sys.ini</language>
         <language tag="el-GR">el-GR/el-GR.mod_r3dcomments.ini</language>
         <language tag="el-GR">el-GR/el-GR.mod_r3dcomments.sys.ini</language>
+        <language tag="it-IT">it-IT/it-IT.mod_r3dcomments.ini</language>
+        <language tag="it-IT">it-IT/it-IT.mod_r3dcomments.sys.ini</language>
     </languages>
 
     <config>
